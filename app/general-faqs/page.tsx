@@ -1,220 +1,155 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState, useRef } from "react";
 import { useInView } from "framer-motion";
+import CraftHero from "@/components/custom/craft-catalog/CraftHero";
 import SecondaryButton from "@/components/custom/buttons/SecondaryButton";
 
-interface FaqItem {
-  title: string;
-  content: React.ReactNode;
-  link?: { label: string; href: string };
-}
-
-const faqItems: FaqItem[] = [
+const faqItems = [
   {
-    title: "How quickly can you get here?",
-    content: (
-      <p>
-        Most calls are scheduled the same day, and we offer near-instant
-        response for urgent clogs. Timing depends on your exact neighborhood,
-        but we move fast. Call us at{" "}
-        <a href="tel:7187491830" className="ia-link">(718) 749-1830</a>{" "}
-        and we&apos;ll give you an accurate ETA on the spot.
-      </p>
-    ),
+    q: "Are you licensed and insured to do electrical work in New York City?",
+    a: "Yes. H&A NYC Electrician holds a State of New York electrical contractor license and is fully insured. All technicians are licensed, drug-tested, and trained to work safely in residential and commercial buildings throughout Manhattan.",
   },
   {
-    title: "Do you give upfront pricing?",
-    content: (
-      <p>
-        Always. We diagnose the issue, explain the solution, and give you the
-        price before any work starts. No surprises, no upsell games. What we
-        quote is what you pay — period.
-      </p>
-    ),
+    q: "Do you charge extra for evenings, weekends, or emergency calls?",
+    a: "No. We are available Mon–Sun, 24 hours a day, and we do not charge overtime rates. The price we quote is the same whether you call at 9am on a Tuesday or 10pm on a Saturday.",
   },
   {
-    title: "What tools do you use to clear drains?",
-    content: (
-      <p>
-        We carry professional cutters, snakes, augers, and hydro-jetting
-        equipment on every truck. Your tech will choose the safest and most
-        effective method for your specific line and problem — and explain why
-        before starting.
-      </p>
-    ),
+    q: "How does your free estimate work?",
+    a: "We arrive, assess the job in front of you, and give you a written price before any work begins. No pressure, no hidden fees. What we quote is what you pay — our team will never increase the price after an estimate is given.",
   },
   {
-    title: "When should I consider hydro jetting instead of snaking?",
-    content: (
-      <p>
-        Snaking clears a path through the clog. Jetting actually scrubs grease,
-        scale, and buildup off the pipe walls — giving you a cleaner line and
-        much longer-lasting results. If you get repeat clogs in the same drain,
-        jetting is usually the right call. We&apos;ll tell you honestly which
-        one makes sense for your situation.
-      </p>
-    ),
+    q: "Do I need a panel upgrade before adding an EV charger or new appliances?",
+    a: "Often yes. Level 2 EV chargers, new HVAC units, and high-draw kitchen appliances typically require dedicated 240V circuits. If your panel is rated at 60 or 100 amps, it may not have the capacity. We assess your panel first and let you know exactly what's needed before any work begins.",
   },
   {
-    title: "Do you service apartments and multi-unit buildings?",
-    content: (
-      <p>
-        All the time. We work with brownstones, pre-war buildings, walk-ups,
-        condos, co-ops, and multi-family homes across Brooklyn, Queens, and
-        Nassau County every day. We coordinate with building managers and work
-        to minimize disruption to other tenants.
-      </p>
-    ),
+    q: "My home has knob-and-tube (or aluminum) wiring — is that dangerous?",
+    a: "Both are recognized fire hazards that most insurance companies in New York City will flag or refuse to cover. Knob-and-tube lacks a ground wire and deteriorates over time. Aluminum wiring expands and contracts differently than copper, causing loose connections and overheating. We replace both types with modern copper wiring — fully permitted and inspected.",
   },
   {
-    title: "What areas do you serve?",
-    content: (
-      <>
-        <p>We serve all of Brooklyn, Queens, and Nassau County including:</p>
-        <p>
-          <strong>Brooklyn:</strong> Williamsburg, Greenpoint, Bushwick,
-          Bed-Stuy, Crown Heights, Park Slope, Sunset Park, Bay Ridge,
-          Bensonhurst, Dyker Heights, Gravesend, Sheepshead Bay, Coney Island
-          and more.
-        </p>
-        <p>
-          <strong>Queens:</strong> Astoria, LIC, Maspeth, Flushing, Whitestone,
-          Bayside, Forest Hills, Rego Park, Jackson Heights, Elmhurst, Middle
-          Village and more.
-        </p>
-        <p>
-          <strong>Nassau County:</strong> Valley Stream, Elmont, Franklin
-          Square, West Hempstead, Hempstead, Garden City, Mineola, New Hyde
-          Park, Rockville Centre, Oceanside, Freeport, Merrick, Bellmore,
-          Levittown, East Meadow and more.
-        </p>
-      </>
-    ),
+    q: "Can you work in occupied apartments and multi-unit buildings?",
+    a: "Yes. We work in apartments, co-ops, condos, and multi-family buildings throughout Manhattan every day. We coordinate with tenants and building managers to minimize disruption, use shoe covers and drop cloths in living spaces, and document all work for building records.",
   },
   {
-    title: "Do you clean up after the job?",
-    content: (
-      <p>
-        Yes — always. Every tech wears shoe covers, lays down drop cloths, and
-        cleans the workspace before leaving. We test the flow, show you the
-        results, and make sure your home is cleaner than we found it. That
-        &apos;s not a bonus — it&apos;s standard.
-      </p>
-    ),
+    q: "Do you pull permits for your electrical work?",
+    a: "Yes, for all work that requires a permit under NYC electrical code — including panel upgrades, new circuit installations, rewires, and EV charger installs. We handle the permit application and schedule the required inspections. All permitted work is signed off before we close the job.",
+  },
+  {
+    q: "What's the difference between a GFI outlet and a regular outlet?",
+    a: "A GFCI (Ground Fault Circuit Interrupter) outlet monitors current flow and cuts power instantly if it detects a ground fault — preventing electrocution. They're required by NYC code in all wet areas including bathrooms, kitchens within 6 feet of a sink, garages, and outdoor circuits. If your home was built before 1973, you may still have standard outlets in these locations that should be upgraded.",
   },
 ];
 
-export default function GeneralFaqsPage() {
-  const [openIndex, setOpenIndex] = useState<number>(0);
-
-  const heroRef = useRef<HTMLDivElement>(null);
-  const accordionRef = useRef<HTMLDivElement>(null);
-  const donationRef = useRef<HTMLDivElement>(null);
-
-  const heroInView = useInView(heroRef, { once: true, margin: "0px 0px -60px 0px" });
-  const accordionInView = useInView(accordionRef, { once: true, margin: "0px 0px -60px 0px" });
-  const donationInView = useInView(donationRef, { once: true, margin: "0px 0px -60px 0px" });
-
-  const toggle = (idx: number) =>
-    setOpenIndex((prev) => (prev === idx ? -1 : idx));
+export default function FAQPage() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionInView = useInView(sectionRef, { once: true, margin: "0px 0px -60px 0px" });
+  const vis = sectionInView ? " is-visible" : "";
 
   return (
-    <main>
-      <div id="content">
+    <main className="pt-76 max-[1150px]:pt-[6.2rem]">
 
-        {/* ── Hero ── */}
-        <div
-          ref={heroRef}
-          className={`hero-org flex-module wow fadeIn${heroInView ? " is-visible" : ""}`}
-        >
-          <div className="hero-org__top ia-bg-dark">
-            <div className="inner inner--slim-1172">
-              <div className={`breadcrumbs ia-sky wow fadeInUpS${heroInView ? " is-visible" : ""}`}>
-                <span><a href="/" className="home ia-link">Home</a></span>{" "}
-                <em>&gt;</em>{" "}
-                <span className="post post-page current-item">FAQs</span>
-              </div>
-              <h1
-                className={`ia-white ia-margin-0 wow fadeInUpS${heroInView ? " is-visible" : ""}`}
-                style={{ animationDelay: "0.1s" }}
+      <CraftHero
+        title="Frequently Asked Questions"
+        bgImage="/images/IMG_9688-1024x682.jpg"
+        breadcrumbs={[{ label: "FAQs" }]}
+      />
+
+      <div ref={sectionRef} className={`content-block-flex flex-module fadeIn wow${vis}`}>
+        <div className="inner inner--slim-1172">
+
+          <h2
+            className={`h3 fadeInUpS wow${vis}`}
+            style={{ animationDelay: "0.1s", marginBottom: "0.5rem" }}
+          >
+            Common Questions About Our Electrical Services
+          </h2>
+          <p
+            className={`p2 fadeInUpS wow${vis}`}
+            style={{ animationDelay: "0.15s", marginBottom: "3rem" }}
+          >
+            Don&rsquo;t see your question here? Call us at{" "}
+            <strong>(646) 351-0882</strong> — we offer free over-the-phone help
+            and can usually answer your question before you even schedule a visit.
+          </p>
+
+          <div
+            className={`faq-list fadeInUpS wow${vis}`}
+            style={{ animationDelay: "0.2s" }}
+          >
+            {faqItems.map((item, i) => (
+              <div
+                key={i}
+                className="faq-item"
+                style={{
+                  borderBottom: "1px solid #e5e7eb",
+                  paddingBottom: "1.5rem",
+                  marginBottom: "1.5rem",
+                }}
               >
-                Frequently Asked Questions
-              </h1>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Accordion ── */}
-        <div className="accordion-module flex-module">
-          <div className="inner inner--slim-1172">
-            <div
-              ref={accordionRef}
-              className={`accordion-wrap-flex wow fadeInUpS${accordionInView ? " is-visible" : ""}`}
-              style={{ animationDelay: "0.3s" }}
-            >
-              {faqItems.map((item, idx) => {
-                const isOpen = openIndex === idx;
-                return (
-                  <div className="accordion-item-flex" key={idx}>
-                    <a
-                      className={`accordion-title-flex h4${isOpen ? " current" : ""}`}
-                      href="#"
-                      onClick={(e) => { e.preventDefault(); toggle(idx); }}
-                      aria-expanded={isOpen}
-                    >
-                      {item.title}
-                      <i className="icon-arr-down" aria-hidden="true" />
-                    </a>
-                    <div className={`accordion-info-flex${isOpen ? " open" : ""}`}>
-                      <div className="content-entry">{item.content}</div>
-                      {item.link && (
-                        <a href={item.link.href} className="ia-link ia-link--arrow">
-                          <i className="icon-arrow-right" aria-hidden="true" />
-                          <span>{item.link.label}</span>
-                        </a>
-                      )}
-                    </div>
+                <button
+                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: 0,
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    width: "100%",
+                    textAlign: "left",
+                    gap: "1rem",
+                  }}
+                >
+                  <span
+                    className="p2 ia-medium"
+                    style={{ fontSize: "1.7rem", lineHeight: 1.4 }}
+                  >
+                    {item.q}
+                  </span>
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      fontSize: "2rem",
+                      lineHeight: 1,
+                      color: "#e07b39",
+                      transform: openIndex === i ? "rotate(45deg)" : "rotate(0deg)",
+                      transition: "transform 0.25s ease",
+                    }}
+                  >
+                    +
+                  </span>
+                </button>
+                {openIndex === i && (
+                  <div
+                    className="content-entry"
+                    style={{ marginTop: "1rem", paddingRight: "3rem" }}
+                  >
+                    <p style={{ fontSize: "1.5rem", lineHeight: 1.7 }}>{item.a}</p>
                   </div>
-                );
-              })}
-            </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* ── CTA ── */}
-        <div
-          ref={donationRef}
-          className={`front-donation ia-bg-sky flex-module wow fadeInUpS${donationInView ? " is-visible" : ""}`}
-        >
-          <div className="inner inner--slim-1172">
-            <div className={`sub-heading wow fadeInUpS${donationInView ? " is-visible" : ""}`} style={{ animationDelay: "0.2s" }}>
-              Still have questions?
-            </div>
-            <h2 className={`h2 wow fadeInUpS${donationInView ? " is-visible" : ""}`} style={{ animationDelay: "0.2s" }}>
-              We&apos;re Here to Help
-            </h2>
-            <div className={`front-donation__in wow fadeInUpS${donationInView ? " is-visible" : ""}`} style={{ animationDelay: "0.2s" }}>
-              <div className="content-entry">
-                <p>
-                  Call us at <strong>(718) 749-1830</strong> — our team picks up fast
-                  and can answer any question, schedule a same-day visit, or give you
-                  an honest assessment over the phone.
-                </p>
-              </div>
-              <div className="front-donation__btn-wrap">
-                <div className="front-donation__btn">
-                  <SecondaryButton
-                    label="Call (718) 749-1830"
-                    href="tel:7187491830"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
+
+      {/* CTA */}
+      <div className="flex-module ia-bg-sky" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
+        <div className="inner inner--slim-1172" style={{ textAlign: "center" }}>
+          <div className="sub-heading">Still Have Questions?</div>
+          <h2 className="h3" style={{ marginBottom: "1.5rem" }}>
+            Call Us — We Offer Free Over-the-Phone Help
+          </h2>
+          <p className="p2" style={{ marginBottom: "2.5rem", maxWidth: "56rem", margin: "0 auto 2.5rem" }}>
+            Licensed NYC electricians available Mon–Sun, 24 hours. Describe the issue and
+            we&rsquo;ll tell you what you&rsquo;re dealing with before you book a visit.
+          </p>
+          <SecondaryButton label="Call (646) 351-0882" href="tel:6463510882" />
+        </div>
+      </div>
+
     </main>
   );
 }

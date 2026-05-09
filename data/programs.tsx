@@ -34,7 +34,7 @@ export type ProgramsPageData = {
 export const programsData: ProgramsPageData = {
   navItems: [
     { href: "#flex-module-3", label: "Service Details" },
-    { href: "#flex-module-4", label: "Service Areas"  },
+    { href: "#flex-module-4", label: "Service Areas"   },
   ],
 
   hero: {
@@ -42,9 +42,9 @@ export const programsData: ProgramsPageData = {
     title: "Our Services",
     description: (
       <p>
-        Pipe Monkeys handles every type of drain and sewer issue across
-        Brooklyn, Queens, and Nassau County — from a slow kitchen sink to a
-        fully blocked main line.
+        H&A NYC Electrician handles every type of residential and commercial
+        electrical job in Manhattan — from panel upgrades and home rewires to
+        EV charger installations, generator installs, and everything in between.
       </p>
     ),
     breadcrumbParentLabel: "Services",
@@ -55,17 +55,14 @@ export const programsData: ProgramsPageData = {
     content: (
       <>
         <p>
-          Every job starts the same way: we diagnose the problem, explain the
-          solution in plain language, and give you the price before any work
-          begins. Our techs carry professional-grade cutters, snakes, augers,
-          and hydro-jetting equipment — so whatever the line throws at us,
-          we&rsquo;re ready.
+          Every job starts the same way: we arrive, assess the problem or scope in
+          front of you, explain exactly what needs to happen, and give you the price
+          before a single tool is lifted. No mystery charges. No pressure. Just a
+          straight answer and a plan.
         </p>
         <p>
-          We work in residential homes, brownstones, pre-war walk-ups, condos,
-          and multi-family buildings. Same-day scheduling available. Near-instant
-          response for emergencies. Call{" "}
-          <a href="tel:7187491830">(718) 749-1830</a> to get started.
+          Licensed by the State of New York, fully insured, available Mon–Sun 24
+          hours. Call <a href="tel:6463510882">(646) 351-0882</a> to get started.
         </p>
       </>
     ),
@@ -76,101 +73,103 @@ export const programsData: ProgramsPageData = {
 
   programs: [
     {
-      title: "Main Sewer Line Clearing",
+      title: "200 Amp Panel Upgrades",
       content: (
         <p>
-          Roots, scale, grease buildup, and heavy blockages in the main line
-          require pro-level equipment — not a standard snake from the hardware
-          store. Our techs use industrial cutters and jetting to restore full
-          flow to your main sewer line and confirm it before leaving. We handle
-          this every day in Brooklyn brownstones, Queens multi-families, and
-          Nassau County homes with long sewer runs.
+          Older Manhattan homes run on panels that cannot support modern appliances,
+          EV chargers, or new circuits. We upgrade to 200-amp service — pulling all
+          necessary permits, completing to NYC electrical code, and passing inspection
+          before we call the job done.
         </p>
       ),
-      learnMoreHref: "/craft-catalog/main-sewer-lines",
+      learnMoreHref: "/craft-catalog/panel-upgrades",
     },
     {
-      title: "Kitchen Sink Drain Clearing",
+      title: "Home Rewires",
       content: (
         <p>
-          Grease, food debris, and soap scum are the most common kitchen culprits
-          — and they build up fast in NYC buildings with heavy daily use. We
-          clear kitchen drains using professional cutters and hydro jetting
-          depending on the severity, leaving the line fully open and grease-free.
-          No mess, no damage to pipes, and no recurring clogs if you go with
-          jetting.
+          Knob-and-tube, aluminum, and cloth-insulated wiring are hazards that
+          modern insurers increasingly refuse to cover. We replace legacy wiring
+          with modern copper throughout your home — fully permitted and inspected.
         </p>
       ),
-      learnMoreHref: "/craft-catalog/kitchen-sinks",
+      learnMoreHref: "/craft-catalog/home-rewires",
     },
     {
-      title: "Tub & Shower Drain Clearing",
+      title: "EV Charger Installation",
       content: (
         <p>
-          Hair, soap buildup, and mineral deposits accumulate silently until
-          you&rsquo;re standing in ankle-deep water. Our techs remove the
-          blockage cleanly — no torn-up tile, no chemical damage to pipes — and
-          leave the bathroom exactly as they found it. Shoe covers and drop
-          cloths every time.
+          A Level 2 charger requires a dedicated 240V circuit. We assess your
+          panel capacity first, handle any necessary upgrade, then run the circuit
+          and install the outlet or hardwired charger at your parking location.
+          Same-day installation available in many cases.
         </p>
       ),
-      learnMoreHref: "/craft-catalog/tubs-and-showers",
+      learnMoreHref: "/craft-catalog/ev-charger-installation",
     },
     {
-      title: "Toilet Clog Clearing",
+      title: "Generator Installation",
       content: (
         <p>
-          Stubborn toilet clogs — including foreign objects, excessive paper,
-          and hard-to-reach blockages — are cleared fast with the right auger
-          and technique. We&rsquo;ve retrieved everything from children&rsquo;s
-          toys to full pipe obstructions. No splash, no stress, and we test the
-          flush before we leave.
+          Power outages in Manhattan can last hours or days. We install standby
+          and portable generator systems with properly sized transfer switches —
+          so your essential circuits stay live automatically or with a single
+          manual connection, safely and to code.
         </p>
       ),
-      learnMoreHref: "/craft-catalog/toilets",
+      learnMoreHref: "/craft-catalog/generator-installation",
     },
     {
-      title: "Hydro Jetting",
+      title: "Electrical Troubleshooting",
       content: (
         <p>
-          Snaking clears a path through the clog. Hydro jetting actually scrubs
-          grease, scale, and buildup off the pipe walls — giving you a like-new
-          interior and dramatically reducing repeat clogs. If you&rsquo;ve been
-          dealing with the same drain backing up every few months, jetting is
-          the long-term fix. Available for kitchen lines, main sewer lines, and
-          commercial buildings.
+          Dead outlets, breakers that will not reset, flickering lights, or a
+          burning smell near a panel — we diagnose the root cause before
+          recommending any repair. No guesswork, no upselling. Free over-the-phone
+          help available at (646) 351-0882.
         </p>
       ),
-      learnMoreHref: "/craft-catalog/hydro-jetting",
+      learnMoreHref: "/craft-catalog/electrical-troubleshooting",
     },
     {
-      title: "Camera Inspection",
+      title: "Home Safety Inspections",
       content: (
         <p>
-          Before we recommend a repair or jetting service on your main line, we
-          can run a camera to show you exactly what&rsquo;s in there — root
-          intrusion, pipe damage, grease buildup, or collapsed sections. You see
-          what we see, in real time, so there&rsquo;s no guesswork and no
-          upselling on work you don&rsquo;t need.
+          Our licensed technicians inspect your panel, wiring type, outlets,
+          grounding, and visible electrical infrastructure — and give you a
+          plain-language report on what needs attention. Free inspections,
+          no pressure, no upselling. Available throughout Manhattan, Mon–Sun.
         </p>
       ),
-      learnMoreHref: "/craft-catalog/camera-inspection",
+      learnMoreHref: "/craft-catalog/home-safety-inspections",
     },
     {
-      title: "Multi-Unit & Commercial Buildings",
+      title: "Whole House Power Surge Protection",
       content: (
         <p>
-          We work with brownstones, pre-war walk-ups, condos, co-ops, and
-          multi-family buildings across Brooklyn and Queens every single day.
-          Stack drain issues, shared main lines, and building-wide backups are
-          all in our wheelhouse. We coordinate with building managers and
-          minimize disruption to tenants throughout the job.
+          A panel-mounted surge protector intercepts voltage spikes before they
+          reach your appliances and electronics. Manhattan aging grid
+          infrastructure makes voltage fluctuations a real risk — installation
+          typically takes under an hour.
         </p>
       ),
-      learnMoreHref: "/craft-catalog/multi-unit-buildings",
+      learnMoreHref: "/craft-catalog/surge-protection",
+    },
+    {
+      title: "Residential & Commercial Electrical",
+      content: (
+        <p>
+          We handle the full range of residential and commercial electrical work
+          throughout Manhattan — lighting, ceiling fans, circuits, GFI outlets,
+          smoke detectors, grounding upgrades, remodel wiring, and property
+          management electrical service. If it is electrical, we do it.
+        </p>
+      ),
+      learnMoreHref: "/craft-catalog/residential-electrician",
     },
   ],
 
-  // No external partners — use service area neighborhoods instead
   partners: [],
 };
+
+export default programsData;

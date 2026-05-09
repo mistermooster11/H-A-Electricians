@@ -3,20 +3,20 @@ import VapeImage from "./VapeImage";
 
 const stats = [
   {
-    stat: "Same-Day",
-    label: "Scheduling Available 7 Days a Week",
+    stat: "24/7",
+    label: "Available Mon–Sun, Around the Clock — No Overtime Charges",
     linkText: "Book Service",
     href: "/contact-us",
   },
   {
-    stat: "4.9★",
-    label: "Average Rating — 100+ Google Reviews",
+    stat: "5★",
+    label: "Rated 5 Stars — Licensed & Fully Insured by the State of New York",
     linkText: "See Reviews",
-    href: "https://www.google.com/maps/search/Pipe+Monkeys",
+    href: "https://www.yelp.com/biz/h-and-a-nyc-electrician-new-york",
   },
   {
-    stat: "100%",
-    label: "Upfront Pricing — You Approve Before We Start",
+    stat: "Free",
+    label: "Estimates on All Jobs — Price Locked Before We Start",
     linkText: "See Our Services",
     href: "/craft-catalog",
   },
@@ -32,9 +32,9 @@ export default function Difference() {
 
           {/* Left: heading + first stat */}
           <div className="flex-1">
-            <div className="sub-heading">Why Pipe Monkeys</div>
+            <div className="sub-heading">Why H&amp;A NYC Electrician</div>
             <h2 className="h1 mb-[3rem]">
-              Local Pros You Can Actually Count On
+              Manhattan&apos;s Electricians You Can Actually Count On
             </h2>
             <div className="hidden md:flex flex-wrap gap-[3rem] py-[2rem]">
               <NumberStatsItem item={stats[0]} />
@@ -44,7 +44,7 @@ export default function Difference() {
           {/* Right: photo */}
           <div className="w-full md:w-[54%] shrink-0 relative z-20">
             <div className="front-difference__image">
-              {/* [TODO: Replace with Pipe Monkeys job site or team photo] */}
+              {/* [TODO: Replace with H&A NYC Electrician job site or team photo] */}
               <VapeImage src="/images/IMG_9750-1024x683.jpg" />
             </div>
           </div>

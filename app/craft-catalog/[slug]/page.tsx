@@ -1,14 +1,13 @@
 import { notFound } from "next/navigation";
-import CraftHero       from "@/components/custom/craft-catalog/CraftHero";
-import ChannelSidebar  from "@/components/custom/channel/ChannelSidebar";
-import CraftOverview   from "@/components/custom/craft-catalog/CraftOverview";
-import RelatedCrafts   from "@/components/custom/craft-catalog/RelatedCrafts";
+import CraftHero      from "@/components/custom/craft-catalog/CraftHero";
+import ChannelSidebar from "@/components/custom/channel/ChannelSidebar";
+import CraftOverview  from "@/components/custom/craft-catalog/CraftOverview";
+import RelatedCrafts  from "@/components/custom/craft-catalog/RelatedCrafts";
 import { servicePages } from "@/data/craft-catalog/service-pages";
 
-// TODO: Replace PLACEHOLDER_BG with a real service photo per slug
+// [TODO: Replace PLACEHOLDER_BG with a real service photo per slug before launch]
 const PLACEHOLDER_BG = "/images/IMG_9688-1024x682.jpg";
 
-/* Pre-render all known service slugs at build time */
 export function generateStaticParams() {
   return Object.keys(servicePages).map((slug) => ({ slug }));
 }
@@ -22,8 +21,8 @@ export async function generateMetadata({
   const data = servicePages[slug];
   if (!data) return {};
   return {
-    title: `${data.title} — Pipe Monkeys`,
-    description: `Professional ${data.title.toLowerCase()} service in Brooklyn, Queens, and Nassau County. Upfront pricing, same-day scheduling, guaranteed results.`,
+    title: `${data.title} — H&A NYC Electrician`,
+    description: `Licensed ${data.title.toLowerCase()} service throughout Manhattan. Upfront pricing, free estimates, available Mon–Sun 24 hours.`,
   };
 }
 
@@ -53,7 +52,7 @@ export default async function ServiceDetailPage({
 
           <div className="channel-container">
 
-            {/* ── Overview ─────────────────────────────────────────────── */}
+            {/* ── Overview ── */}
             <div id="overview">
               <CraftOverview
                 overviewContent={data.overviewContent}
@@ -61,7 +60,7 @@ export default async function ServiceDetailPage({
               />
             </div>
 
-            {/* ── Middle sections ──────────────────────────────────────── */}
+            {/* ── Middle sections ── */}
             {data.sections.map((section) => (
               <div key={section.id} id={section.id} className="section-page">
                 <div className="content-block">
@@ -79,34 +78,35 @@ export default async function ServiceDetailPage({
               </div>
             ))}
 
-            {/* ── CTA banner ───────────────────────────────────────────── */}
+            {/* ── CTA banner ── */}
             <div className="banner-craft ia-bg-sky fadeInUp wow is-visible">
               <div className="inner">
                 <div className="content-entry p3">
                   <p>
                     <strong>Ready to book?</strong>{" "}
                     Call{" "}
-                    <a href="tel:7187491830">(718) 749-1830</a>{" "}
-                    for same-day scheduling, or{" "}
+                    <a href="tel:6463510882">(646) 351-0882</a>{" "}
+                    for a free estimate, or{" "}
                     <a href="/contact-us">send us a message online</a>.
-                    We give you a price before we start — no surprises.
+                    We give you the price before we start — no surprises.
+                    Available Mon&ndash;Sun, 24 hours.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* ── Related Services ─────────────────────────────────────── */}
+            {/* ── Related Services ── */}
             <div id="related_services">
-            <RelatedCrafts
-              description={
-                <p>
-                  Pipe Monkeys handles every type of drain and sewer problem
-                  across Brooklyn, Queens, and Nassau County. Explore our other
-                  services below.
-                </p>
-              }
-              crafts={data.relatedServices}
-            />
+              <RelatedCrafts
+                description={
+                  <p>
+                    H&amp;A NYC Electrician handles every type of residential and
+                    commercial electrical job throughout Manhattan. Explore our
+                    other services below.
+                  </p>
+                }
+                crafts={data.relatedServices}
+              />
             </div>
 
           </div>

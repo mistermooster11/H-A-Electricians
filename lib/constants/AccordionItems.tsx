@@ -1,61 +1,73 @@
+export type AccordionStep = { label: string; body: string };
 
-type AccordionStep = { label: string; body: string };
+export type AccordionItem = {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  learnHref: string;
+  steps: AccordionStep[];
+};
 
-export const accordionItems = [
+export const accordionItems: AccordionItem[] = [
   {
     id: "accordion-0",
-    title: "Main Sewer Lines",
+    title: "200 Amp Panel Upgrades",
     image: "/images/IMG_9688-1024x682.jpg",
+    // [TODO: Replace with H&A panel upgrade job photo]
     description:
-      "When the main line backs up, every drain in the building stops. We clear main sewer lines in Brooklyn brownstones, Queens multi-family buildings, and Nassau County homes — same day.",
-    learnHref: "/craft-catalog/main-sewer-lines",
+      "Older Manhattan homes run on 60–100 amp panels that can't keep up with modern appliances, AC units, or EV chargers. We upgrade to 200-amp service with all permits pulled and inspections passed.",
+    learnHref: "/craft-catalog/panel-upgrades",
     steps: [
-      { label: "Diagnose", body: "We assess the blockage and confirm whether a camera inspection is needed before tools go in." },
-      { label: "Quote Upfront", body: "Price confirmed before any work begins — no surprises, no bait-and-switch." },
-      { label: "Clear It", body: "Industrial cutters and hydro jetting break through root masses, grease plugs, and heavy scale until flow is fully restored." },
-      { label: "Confirm & Clean Up", body: "We run water to verify full flow, show you the result, and leave the work area clean." },
-    ] as AccordionStep[],
+      { label: "Assess Your Panel", body: "We evaluate your current capacity and confirm the upgrade path — including any service entry work required." },
+      { label: "Free Written Quote", body: "Full price covering labor, materials, and permit fees before we schedule a start date." },
+      { label: "Pull Permits & Install", body: "We handle all NYC permit requirements and install the new 200-amp panel to code." },
+      { label: "Inspection & Sign-Off", body: "We schedule and pass the required inspection before considering the job complete." },
+    ],
   },
   {
     id: "accordion-1",
-    title: "Kitchen Sink Drains",
+    title: "Home Rewires",
     image: "/images/IMG_9750-1024x683.jpg",
+    // [TODO: Replace with H&A rewire job photo]
     description:
-      "Grease, food debris, and soap scum build up faster in NYC kitchens than anywhere else. We clear kitchen drains across Brooklyn, Queens, and Nassau County with pro snakes and hydro jetting.",
-    learnHref: "/craft-catalog/kitchen-sinks",
+      "Knob-and-tube, aluminum, and cloth-insulated wiring are fire hazards that insurers increasingly refuse to cover. We replace legacy wiring with modern copper throughout Manhattan homes — fully permitted and inspected.",
+    learnHref: "/craft-catalog/home-rewires",
     steps: [
-      { label: "Diagnose", body: "We assess the drain and confirm whether snaking or hydro jetting is the right call for your situation." },
-      { label: "Quote Upfront", body: "Price confirmed before we touch anything — what we quote is what you pay." },
-      { label: "Clear It", body: "Hydro jetting scrubs grease from pipe walls for recurring clogs; a professional snake handles straightforward blockages fast." },
-      { label: "Test & Clean Up", body: "Hot water confirms full drainage. We wipe down the work area before leaving." },
-    ] as AccordionStep[],
+      { label: "Full Wiring Assessment", body: "We identify all active legacy wiring and map the full replacement scope before quoting." },
+      { label: "Written Estimate", body: "Detailed price — labor and materials — agreed before any walls open." },
+      { label: "Replace & Re-Run", body: "All hazardous wiring replaced with modern copper; we work cleanly and patch as we go." },
+      { label: "Final Inspection", body: "All work inspected and signed off to current NYC electrical code." },
+    ],
   },
   {
     id: "accordion-2",
-    title: "Hydro Jetting",
-    image: "/images/iStock-530983109-1.jpg",
+    title: "EV Charger Installation",
+    image: "/images/IMG_9688-1024x682.jpg",
+    // [TODO: Replace with H&A EV charger job photo]
     description:
-      "A snake clears a path. Hydro jetting scrubs the pipe walls clean. If the same drain has backed up more than once this year, jetting is the long-term fix.",
-    learnHref: "/craft-catalog/hydro-jetting",
+      "A Level 2 charger needs a dedicated 240V circuit — we assess your panel first, handle any necessary upgrade, then install the circuit and charger at your parking location. Same-day installation available in many cases.",
+    learnHref: "/craft-catalog/ev-charger-installation",
     steps: [
-      { label: "Camera First", body: "We confirm the pipe is structurally sound before introducing high pressure — jetting a cracked pipe makes it worse." },
-      { label: "Quote Upfront", body: "Price confirmed before we start." },
-      { label: "Jet It", body: "The hose feeds through the clean-out at up to 4,000 PSI, scrubbing pipe walls clean in both directions until flow is fully restored." },
-      { label: "Confirm", body: "We run water to verify full flow. On main line jobs, we can run a post-jet camera to show you the before-and-after." },
-    ] as AccordionStep[],
+      { label: "Panel Capacity Check", body: "We confirm your panel can support a 240V dedicated circuit — or identify what upgrade is needed." },
+      { label: "Free Quote", body: "Full written estimate covering the circuit run, outlet or hardwired charger, and any panel work." },
+      { label: "Install the Circuit", body: "Dedicated 240V circuit run cleanly to your parking location; NEMA 14-50 or hardwired charger installed." },
+      { label: "Test the Charge Session", body: "We initiate a charge and confirm everything is working correctly before we leave." },
+    ],
   },
   {
     id: "accordion-3",
-    title: "Camera Inspection",
-    image: "/images/IMG_9688-1024x682.jpg",
+    title: "Electrical Troubleshooting",
+    image: "/images/IMG_9750-1024x683.jpg",
+    // [TODO: Replace with H&A troubleshooting/service call photo]
     description:
-      "Before recommending a major repair or repeated service, we run a camera through the line and show you exactly what's there — in real time. No guesswork. No upsells on work you don't need.",
-    learnHref: "/craft-catalog/camera-inspection",
+      "Dead outlets, breakers that won't reset, flickering lights, or a burning smell near a panel — we diagnose the root cause and fix it right the first time. Free over-the-phone help available before you book.",
+    learnHref: "/craft-catalog/electrical-troubleshooting",
     steps: [
-      { label: "Access the Line", body: "We locate the clean-out or access point nearest the problem area." },
-      { label: "Quote Upfront", body: "Price confirmed before the camera goes in." },
-      { label: "Run the Camera", body: "High-resolution footage shows root masses, grease, cracks, or offsets in real time — you're watching the screen with us." },
-      { label: "Report & Recommend", body: "We tell you what we found and what needs to be done, with footage to back it up. You decide. No pressure." },
-    ] as AccordionStep[],
+      { label: "Diagnose the Root Cause", body: "We identify the actual problem — not just the symptom — before recommending any repair." },
+      { label: "Explain in Plain Language", body: "We show you what we found and walk you through the fix before picking up a tool." },
+      { label: "Quote Before Starting", body: "Written price confirmed. What we quote is what you pay — no additions after the fact." },
+      { label: "Fix & Test", body: "Repair completed and tested to confirm the issue is fully resolved." },
+    ],
   },
 ];

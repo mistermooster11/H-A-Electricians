@@ -1,127 +1,168 @@
-# Pipe Monkeys — Content Brief
-**QuickFlip Sites | Build Log**
-Date: April 2026
-Prospect: pipemonkeys.com (Brooklyn, Queens & Nassau County drain/sewer)
-Template: NCCER clone (Next.js 14 App Router)
-Reference site: apexroofingpro.com
+# H&A NYC Electrician — Content Brief
+**QuickFlip Sites | Build Log**  
+Date: May 2026  
+Prospect: https://www.bestnycelectricianmanhattan.com/  
+Template: PipeMonkey-Redesign  
+Reference site: https://ae-nyc-plumbing.vercel.app/contact-us (contact page layout)
 
 ---
 
 ## Source Material Summary
 
-Pipe Monkeys' existing site is a **single-page WordPress build** — no subpages, no blog, no gallery. All content was pulled from that one page and distributed across the template's 7-page structure. Key details extracted:
+- **Business Name:** H&A NYC Electrician
+- **Primary Phone:** (646) 351-0882
+- **Secondary Phone:** (646) 798-4788 (WEST — not used in build; use primary only)
+- **Address:** 40 Fulton Street, New York, NY 10038
+- **Hours:** Mon–Sun, 24 Hours (no overtime charges)
+- **Service Area:** All of Manhattan (full ZIP code list extracted from source site)
+- **Social Media:** Facebook (HaNycElectrician), Twitter (nyc_electrician), Yelp (h-and-a-nyc-electrician-new-york)
+- **License:** State of New York electrical contractor
+- **Differentiators:** Free estimates with locked pricing, drug-tested techs, 24/7 no overtime, 5-star rated, residential + commercial + industrial capability
 
-- **Phone:** (718) 749-1830
-- **Service area:** Brooklyn, Queens, Nassau County
-- **Services:** Main sewer line, kitchen sink, tub/shower, toilet, hydro jetting, drain snaking, camera inspection, multi-unit/commercial
-- **Differentiators from site copy:** Upfront pricing, local NYC techs, cleanup guarantee, same-day scheduling
-- **Key testimonial:** Daniel Pipitone, Brooklyn homeowner — Google review
+---
+
+## Service Inventory (from source site)
+
+Source site had significant duplication. Below is the de-duplicated inventory:
+
+1. Residential Electrician
+2. Commercial Electrician
+3. 200 Amp Panel Upgrades
+4. Home Rewires
+5. Aluminum Wire Replacement
+6. Knob and Tube Wiring Replacement
+7. Cloth Insulated Wire Replacement
+8. Electric Vehicle (EV) Charger Installation
+9. Generator Installation
+10. Electrical Circuit Installations
+11. Lighting Installation Service
+12. Ceiling Fan Installation
+13. Landscaping Lighting Service
+14. GFI Electrical Outlets
+15. Grounding Electrical Service
+16. Whole House Power Surge Protection
+17. Home Safety Inspections
+18. Electrical Troubleshooting
+19. Smoke Detector Installation
+20. Remodel and Renovation
+21. Property Management Electrical Service
+22. Service Calls
+
+---
+
+## Services Consolidated
+
+The source site listed many services twice under slightly different names. Consolidations made:
+
+| Consolidated Into | Removed Duplicates |
+|---|---|
+| 200 Amp Panel Upgrades | "Panel Upgrades" (generic) |
+| Home Safety Inspections | "Free Home Safety Inspection" |
+| Electrical Circuit Installations | "Electric Circuit Installation" |
+| Grounding Electrical Service | "Ground Electrical Service" |
+| Lighting Installation Service | "Light Installation Service" |
+| Remodel and Renovation | "Renovation and Remodels" |
+| Service Calls | "Services Calls" |
+| Property Management Electrical Service | "Property Managers Electrical Service" |
+| Whole House Power Surge Protection | "Power Surge Installation" |
+
+**Not included as services:** "Free Over The Phone Help" and "Free Electrical Estimate" — treated as value props, not billable services. These are referenced in copy throughout the site instead.
 
 ---
 
 ## Pages Built & Content Decisions
 
-### 1. Homepage (`app/page.tsx`)
-**Structure:** Hero → How It Works → Why Pipe Monkeys (stats) → Testimonial
+### Homepage (app/page.tsx)
+- Template structure unchanged: Hero → Announcements (How It Works) → Insights (Services accordion) → Testimonial → HomeCTA
+- All copy rewritten for H&A NYC Electrician / electrical trade
 
-**Kept from source:** Business headline concept, service area list, tech credentials, upfront pricing promise, cleanup guarantee, testimonial
+### Hero.tsx
+- Headline: "Manhattan's Licensed Electricians — Available 24/7"
+- Subhead emphasizes panel upgrades, rewires, EV chargers, generators
+- CTA: Call (646) 351-0882
+- Video placeholder retained — [TODO: Replace with client video or image]
 
-**Cut from template:** Insights tabbed section (NCCER org-specific), Donation widget, Research section, News section — all irrelevant to a trade service business
+### Announcements.tsx (How It Works)
+- 3-step process: Diagnose → Free Quote → Fix & Clean Up
+- Buttons: Call (646) 351-0882 | See All Services
 
-**Generated:** "How It Works" 3-step process (Diagnose → Approve & Clear → Confirm & Clean Up) — written to match PM's stated process; short and concrete, no fluff
+### Difference.tsx (Trust Stats)
+- 24/7 — availability, no overtime
+- 5★ — links to Yelp reviews
+- Free — estimates, price locked before start
 
-**Stats block:** "Same-Day", "4.9★", "100%" — drawn from real review signals. Note: Verify exact review count and rating with client before launch.
+### Insights.tsx / AccordionItems.tsx
+- 4 accordion services: Panel Upgrades | Home Rewires | EV Charger Installation | Electrical Troubleshooting
 
----
+### Testimonial.tsx
+- 3 placeholder reviews generated — all flagged with `// TODO: Replace with real review`
 
-### 2. About Us (`app/explore/[slug]/page.tsx` → `/explore/pipemonkeys`)
-**Data file:** `data/channel/pipemonkeys.tsx`
+### HomeCTA.tsx
+- Headline: "Electrical Problem? Call Now."
+- Phone: (646) 351-0882
 
-**Kept:** All copy about the business ethos, local knowledge angle, upfront pricing, cleanup guarantee, Daniel Pipitone testimonial
+### About Us (data/channel/ha-nyc-electrician.tsx)
+- Full channel data file written with extracted copy from prospect site
+- Bio, services list, testimonial quote, emergency CTA all populated
 
-**Restructured:** Split into 4 headed subsections (Upfront Pricing, Local NYC Technicians, Clean Every Time, Real Results Guaranteed) — matches how Apex Roofing Pro handled their About section: scannable, value-point driven
+### Contact Page (app/contact-us/page.tsx)
+- Matches A&E NYC Plumbing layout
+- **Expanded form:** `align-items: stretch` on grid + flex column on form + `flex: 1` on textarea wrapper so form fills full height of right column on desktop
+- Service dropdown includes all 22 services
+- Google Maps embed centered on Manhattan
+- Address and hours populated from source site
 
-**Generated:** Intro paragraph ("When drains back up, homeowners need someone fast, honest, and effective…") — 1 tight paragraph, no fluff
+### Service Areas (app/service-areas/page.tsx)
+- 3 regions: Upper Manhattan | Midtown Manhattan | Lower Manhattan
+- Full neighborhood list from source site ZIP code data
 
----
+### FAQs (app/general-faqs/page.tsx)
+- 8 FAQs generated — electrician-specific, NYC-focused
+- Topics: licensing, overtime, estimates, panel upgrades, legacy wiring, multi-unit buildings, permits, GFI outlets
 
-### 3. Services Catalog (`app/craft-catalog/page.tsx`)
-**Data file:** `data/craft-catalog/crafts.ts`
+### Gallery (app/gallery/page.tsx)
+- 4 placeholder items: Panel Upgrade | Home Rewire | EV Charger | Lighting
+- All flagged [TODO: Replace with real photos]
 
-**Replaced:** 67 NCCER craft items → 8 PM services
-- Main Sewer Lines | Kitchen Sinks | Tubs & Showers | Toilets | Hydro Jetting | Drain Snaking & Augering | Camera Inspection | Multi-Unit & Commercial Buildings
+### Blog (app/blog/page.tsx)
+- 6 placeholder posts with realistic electrician/NYC titles
+- All flagged [TODO: Link to full article]
 
-**Category taxonomy:** Drain Cleaning / Advanced Services / Commercial — mirrors the filterable nav pattern from the template
-
----
-
-### 4. Service Detail Pages (`app/programs-crafts/programs/page.tsx`)
-**Data file:** `data/programs.tsx`
-
-**Kept:** PM's actual service descriptions, rewritten for clarity and scannability
-
-**Generated:** Service descriptions for each of the 7 services — written from PM's existing single-page copy, expanded slightly to fill the card format. Each is 1 focused paragraph, no padding.
-
-**Cut:** Partner logos section (no external partners applicable)
-
----
-
-### 5. FAQs (`app/general-faqs/page.tsx`)
-
-**Kept:** All 7 FAQs are grounded in PM's real positioning and services — pulled directly from what the site communicated
-
-**Generated:** Q&A format copy — none of it contradicts PM's actual service model. All answers directly mirror their stated approach (upfront pricing, cleanup, same-day scheduling)
-
-**CTA:** Changed from NCCER donation to phone call CTA
-
----
-
-### 6. Contact Us (`app/contact-us/page.tsx`)
-
-**Kept:** Phone number, service area info, form embed (HubSpot iframe — left in place)
-
-**Replaced:** NCCER staff directory → 3 service area cards (Brooklyn, Queens, Nassau) with full neighborhood lists
-
-**TODO flagged:** Contact form iframe — client needs to verify the HubSpot form ID or replace with their preferred form tool
-
----
-
-### 7. Gallery (`app/gallery/page.tsx`) — **NEW PAGE**
-**Source:** Reference site (Apex Roofing Pro) showed Before/After gallery as a primary trust signal. PM has no existing gallery.
-
-**Decision:** Built full gallery page with 6 placeholder before/after cards across all service categories. Layout uses 2-column before/after image pairs per job card.
-
-**All images flagged:** `[TODO: swap image]` throughout — client needs to provide real job photos
-
----
-
-### 8. Service Areas (`app/service-areas/page.tsx`) — **NEW PAGE**
-**Source:** Reference site had a dedicated service area section. PM serves 3 distinct regions with very different housing stock.
-
-**Decision:** Built one page with 3 anchor-linked sections (Brooklyn, Queens, Nassau County). Each section has: a localized description, 3 specific callouts, full neighborhood list.
-
-**Generated:** All copy — written to be locally specific (brownstones in Brooklyn, long sewer runs in Nassau, mixed housing types in Queens). All factual details are consistent with PM's actual service area.
-
----
-
-### 9. Blog (`app/blog/page.tsx`) — **NEW PAGE**
-**Source:** Reference site had a blog. PM has none.
-
-**Decision:** Built a placeholder blog index with 6 sample posts. Post titles and excerpts are real content angles Pipe Monkeys could use — all relevant to their actual services and customer pain points.
-
-**TODO flagged:** All posts are placeholders. Client needs to: (a) decide if they want a blog, (b) wire up CMS or create individual post pages if yes.
+### Privacy Policy (app/privacy-policy/page.tsx)
+- Updated company name to H&A NYC Electrician
+- Address and phone updated
 
 ---
 
 ## Navigation Changes
 
-**Template had:** 7-item mega-dropdown NCCER nav (CraftPro, Explore, Crafts, Credentials, Career Pathways, Research, Our Impact, About Us)
+**Template default:** Home | Services | FAQs | Contact (4 items)  
+**Built nav:** Home | Services | Service Areas | FAQs | Contact (5 items)  
+**Reason:** Manhattan neighborhood coverage is a key differentiator — added Service Areas to nav.
 
-**PM nav:** Home | Services | FAQs | Contact — 4 flat items, no dropdowns. Matches Apex Roofing Pro's lean 4-item pattern.
+---
 
-**Topnav:** Replaced NCCER utility links (Find My NCCER Number, Take Module Test) with PM phone number bar: "(718) 749-1830 — Same-Day Service Available"
+## Copy Generation Log
 
-**Footer:** Replaced NCCER widgets (Donation, Mailing List) with PM Contact Info + Service Areas summary
+The following content was generated (no equivalent on source site):
+
+- All FAQ answers (source site had no FAQ section)
+- Testimonial placeholder reviews (source site had no review quotes — only a link to Google)
+- Blog post titles and excerpts (6 entries)
+- Service area neighborhood descriptions (using ZIP codes from source site)
+- Channel data learnMore section (expanded from thin source copy)
+- Accordion step-by-step content for 4 services
+
+All other copy was extracted or tightened from the source site.
+
+---
+
+## Social Icons in Footer
+
+Three social channels implemented in `Footer.tsx`:
+- **Facebook** — `icon-facebook` icomoon class → https://www.facebook.com/HaNycElectrician
+- **Twitter/X** — `icon-twitter` icomoon class → https://twitter.com/nyc_electrician
+- **Yelp** — inline SVG (no icomoon glyph available) → https://www.yelp.com/biz/h-and-a-nyc-electrician-new-york
 
 ---
 
@@ -129,39 +170,31 @@ Pipe Monkeys' existing site is a **single-page WordPress build** — no subpages
 
 | Item | File | Notes |
 |------|------|-------|
-| Hero image/video | `components/custom/Hero.tsx` | Replace placeholder with PM photo |
-| Logo files | `Topnav.tsx`, `Footer.tsx` | Replace `/logos/logo-94.svg` and `/logos/logo-long.svg` |
-| Gallery photos | `app/gallery/page.tsx` | All 6 before/after pairs need real job photos |
-| Difference section photo | `components/custom/Difference.tsx` | Job site or team photo needed |
-| Announcements photo | `components/custom/Announcements.tsx` | One team/job site photo |
-| Contact form | `app/contact-us/page.tsx` | Verify HubSpot form ID or replace with preferred form |
-| Social media links | `components/custom/Footer.tsx` | Verify actual Facebook/Instagram URLs |
-| Business hours | `components/custom/Footer.tsx` | Mon–Sat 7am–8pm is a placeholder — confirm with client |
-| Review count/rating | `components/custom/Difference.tsx` | "4.9★" — verify current rating |
-| Blog decision | `app/blog/page.tsx` | Client to decide: live blog or remove page |
-| Additional testimonials | `components/custom/Testimonial.tsx` | Currently 1 quote — request more from client |
+| Hero video/image | `components/custom/Hero.tsx` | Replace NCCER video `<source src>` with real electrical job footage or photo |
+| Announcements image | `components/custom/Announcements.tsx` | Replace `/images/IMG_9688...` backgroundImage with real team/job photo |
+| Difference trust photo | `components/custom/Difference.tsx` | Replace `<VapeImage src>` with real job photo |
+| Accordion images (×4) | `lib/constants/AccordionItems.tsx` | 4 service images — panel, rewire, EV charger, troubleshooting |
+| About Us hero image | `data/channel/ha-nyc-electrician.tsx` → `hero.imageBg` | Job site or team photo |
+| About Us flex feature image | `data/channel/ha-nyc-electrician.tsx` → `flexFeature.imageSrc` | Emergency CTA photo |
+| Service detail hero | `app/craft-catalog/[slug]/page.tsx` → `PLACEHOLDER_BG` | One photo per service slug (or one good general electrical photo) |
+| Gallery photos (×4) | `app/gallery/page.tsx` → `galleryItems[].image` | Real job photos |
+| Contact page hero | `app/contact-us/page.tsx` → `<CraftHero bgImage>` | Real electrical job photo |
+| Logo (header) | `/public/logos/logo-94.svg` | Replace with H&A logo |
+| Logo (footer + nav) | `/public/logos/logo-long.svg` | Replace with H&A horizontal logo |
+| Real testimonials | `components/custom/Testimonial.tsx` | Replace 3 placeholder reviews with real Google reviews |
+| Contact form backend | `app/contact-us/page.tsx` | Wire up form action to JotForm, HubSpot, Gravity Forms, etc. |
+| Google Maps embed | `app/contact-us/page.tsx` | Currently centered on Manhattan island — confirm or pin to exact address |
+| Blog articles | `app/blog/page.tsx` | Replace placeholder posts with real content before publishing |
+| Email address | Multiple files | No email found on source site — confirm and add if available |
+| Secondary phone | `data/channel/ha-nyc-electrician.tsx` | WEST: (646) 798-4788 — confirm whether to use and where |
 
 ---
 
-## Copy Generation Log
+## TypeScript Safeguards Applied
 
-All generated copy is marked below. Everything else is derived directly from pipemonkeys.com or is structural/navigational.
+All four known TS build issues from previous builds were proactively addressed:
 
-**Generated (short):**
-- Homepage intro headline refinement
-- "How It Works" 3-step process in `Announcements.tsx`
-- Stats block labels in `Difference.tsx`
-- Blog post titles and excerpts (6 items) — placeholders only
-- Service area descriptions for Brooklyn, Queens, Nassau County in `service-areas/page.tsx`
-
-**Generated (micro-copy):**
-- CTA button labels throughout
-- Breadcrumbs
-- Sub-headings and section labels
-
-**Not generated — pulled from source:**
-- All service descriptions
-- All FAQ answers
-- Daniel Pipitone testimonial
-- Neighborhood lists
-- Phone number, pricing philosophy, cleanup guarantee language
+1. **Named vs. default export** — `data/programs.tsx` exports both `export const programsData` AND `export default programsData` to satisfy any import style
+2. **Empty array typing** — `partners: PartnerItem[]` explicitly typed even though empty
+3. **CATEGORIES/DISCIPLINES** — retained in `crafts.ts` with `as const` (though unused by v2 filter-bar-removed client)
+4. **PartnerItem field names** — confirmed `{ href, imgSrc, alt }` against `data/programs.tsx` type definition before use

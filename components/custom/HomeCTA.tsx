@@ -16,23 +16,25 @@ export default function HomeCTA() {
     >
       <div className="inner inner--slim-1172">
         <div className={`sub-heading wow fadeInUpS${vis}`} style={{ animationDelay: "0.1s" }}>
-          Same-Day Service Available
+          Available 24 Hours, Mon–Sun
         </div>
         <h2 className={`h2 wow fadeInUpS${vis}`} style={{ animationDelay: "0.15s" }}>
-          Don&apos;t Wait — Call Now
+          Electrical Problem? Call Now.
         </h2>
         <div className={`front-donation__in wow fadeInUpS${vis}`} style={{ animationDelay: "0.2s" }}>
           <div className="content-entry">
             <p>
-              Backed up drains don&apos;t fix themselves. Our Brooklyn, Queens &amp; Nassau County
-              techs are on the road every day — call us and we&apos;ll get someone out fast.
+              Electrical issues don&apos;t wait for business hours — and neither do we.
+              H&amp;A NYC Electrician&apos;s licensed Manhattan technicians are on the
+              road every day, around the clock. Free estimates. No overtime charges.
+              Call now and we&apos;ll get someone out fast.
             </p>
           </div>
           <div className="front-donation__btn-wrap">
             <div className="front-donation__btn">
               <SecondaryButton
-                label="Call (718) 749-1830"
-                href="tel:7187491830"
+                label="Call (646) 351-0882"
+                href="tel:6463510882"
               />
             </div>
           </div>

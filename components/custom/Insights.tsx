@@ -29,7 +29,6 @@ export default function Insights() {
     return () => observer.disconnect();
   }, []);
 
-  // Slide the dec arrow to the active item
   useEffect(() => {
     const list = accordionListRef.current;
     const dec = decRef.current;
@@ -54,28 +53,27 @@ export default function Insights() {
             <h2 className="h3 ia-white">Our Most Common Services</h2>
             <div className="content-entry ia-white max-w-2xl">
               <p className="ia-white">
-                From a single backed-up sink to a full main line blockage, select a service below
-                to see how we handle it — and what you can expect from start to finish.
+                From a tripped breaker or dead outlet to a full panel upgrade or
+                home rewire — select a service below to see how H&amp;A NYC
+                Electrician handles it, and what to expect from start to finish.
               </p>
             </div>
           </div>
 
           {/* BODY */}
           <div className="front-insights__in cleared">
-            {/* LEFT: accordion */}
             <div className="front-insights__left">
               <div className="front-insights__accordion" ref={accordionRef}>
-                {/* Single sliding dec arrow — trượt đến tab active */}
                 <div className="accordion-item__dec" ref={decRef} />
-
                 <div className="accordion" ref={accordionListRef}>
                   {accordionItems.map((item) => {
                     const isOpen = item.id === activeId;
                     return (
-                      <InsightAccordionTabItem 
-                      isOpen={isOpen}
-                      setActiveId={setActiveId}
-                      item={item}
+                      <InsightAccordionTabItem
+                        key={item.id}
+                        isOpen={isOpen}
+                        setActiveId={setActiveId}
+                        item={item}
                       />
                     );
                   })}
@@ -83,14 +81,14 @@ export default function Insights() {
               </div>
             </div>
 
-            {/* RIGHT: accordion data panels */}
             <div className="front-insights__right">
               {accordionItems.map((item) => {
                 const isOpen = item.id === activeId;
                 return (
-                  <InsightAccordionDataItem 
-                  isOpen={isOpen}
-                  item={item}
+                  <InsightAccordionDataItem
+                    key={item.id}
+                    isOpen={isOpen}
+                    item={item}
                   />
                 );
               })}

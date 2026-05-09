@@ -11,9 +11,32 @@ const quickLinks = [
   { label: "Contact Us",                 href: "/contact-us",      external: false },
 ];
 
-const socials = [
-  { icon: "icon-facebook",   href: "https://www.facebook.com/pipemonkeys",  label: "Facebook"  },
-  { icon: "icon-instagram",  href: "https://www.instagram.com/pipemonkeys", label: "Instagram" },
+type SocialItem = { label: string; href: string } & (
+  | { type: "icon"; icon: string }
+  | { type: "svg"; svgPath: string }
+);
+
+const socials: SocialItem[] = [
+  {
+    type: "icon",
+    icon: "icon-facebook",
+    href: "https://www.facebook.com/HaNycElectrician",
+    label: "Facebook",
+  },
+  {
+    type: "icon",
+    icon: "icon-twitter",
+    href: "https://twitter.com/nyc_electrician",
+    label: "Twitter / X",
+  },
+  {
+    type: "svg",
+    // Yelp burst logo path
+    svgPath:
+      "M10.098 12.112l-3.117.936a.63.63 0 01-.77-.836l1.477-3.43a.63.63 0 011.166.05l1.64 3.43a.63.63 0 01-.396.85zm-3.44-5.39L3.04 5.098a.63.63 0 01.05-1.166l3.43-1.64a.63.63 0 01.85.396l.936 3.117a.63.63 0 01-.836.77L6.658 6.722zm7.72 2.054l-3.117-.936a.63.63 0 01-.396-.85l1.64-3.43a.63.63 0 011.166-.05l1.62 3.622a.63.63 0 01-.913.644zm-.394 2.862l-3.43 1.64a.63.63 0 01-.85-.396l-.936-3.117a.63.63 0 01.836-.77l3.622 1.62a.63.63 0 01-.242.923zM8 0C3.582 0 0 3.582 0 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm4.09 11.09c-.137.42-.51.667-.912.667a.93.93 0 01-.27-.04l-2.87-1.37-.36.838 2.87 1.37c.42.2.61.703.41 1.123a.87.87 0 01-.79.52.87.87 0 01-.37-.083l-2.87-1.37-.004.009-.895 2.08a.87.87 0 01-.793.524.87.87 0 01-.37-.083.87.87 0 01-.44-1.153l.895-2.08-.009-.004-2.87-1.37a.87.87 0 01-.44-1.153.87.87 0 011.153-.44l2.87 1.37.36-.838-2.87-1.37a.87.87 0 01-.44-1.153.87.87 0 011.153-.44l2.87 1.37.004-.009.895-2.08a.87.87 0 011.153-.44.87.87 0 01.44 1.153l-.895 2.08.009.004 2.87 1.37c.42.2.61.703.41 1.123z",
+    href: "https://www.yelp.com/biz/h-and-a-nyc-electrician-new-york",
+    label: "Yelp",
+  },
 ];
 
 export default function Footer() {
@@ -30,11 +53,11 @@ export default function Footer() {
         {/* Logo */}
         <div className={`footer__logo fadeInUpS wow${vis}`}>
           <a href="/">
-            <span className="sr-only">Pipe Monkeys</span>
-            {/* [TODO: Replace with Pipe Monkeys logo] */}
+            <span className="sr-only">H&amp;A NYC Electrician</span>
+            {/* [TODO: Replace with H&A NYC Electrician logo file] */}
             <img
               src="/logos/logo-long.svg"
-              alt="Pipe Monkeys Drain & Sewer"
+              alt="H&A NYC Electrician"
               width="220"
               height="48"
             />
@@ -66,14 +89,13 @@ export default function Footer() {
             <h3 className="footer__heading">Contact Us</h3>
             <div className="content-entry">
               <p>
-                <strong>(718) 749-1830</strong><br />
-                Brooklyn, Queens &amp; Nassau County<br />
-                {/* [TODO: Add business hours] */}
-                Mon–Sat: 7am–8pm &bull; Sun: Emergency Only
+                40 Fulton Street, New York, NY 10038<br />
+                <strong>(646) 351-0882</strong><br />
+                Mon–Sun: 24 Hours
               </p>
             </div>
             <a
-              href="tel:7187491830"
+              href="tel:6463510882"
               className={`ia-link ia-link--arrow ia-link--white wow${vis}`}
             >
               <i className="icon-arrow-right ia-orange" />
@@ -89,9 +111,9 @@ export default function Footer() {
             <h3 className="footer__heading">Service Areas</h3>
             <div className="content-entry">
               <p>
-                Brooklyn &bull; Queens &bull; Nassau County<br />
-                All neighborhoods — if you&apos;re not sure,
-                just call. We almost certainly cover your area.
+                All of Manhattan — from Inwood &amp; Washington Heights
+                to the Financial District &amp; Battery Park City.
+                Every neighborhood, every ZIP code.
               </p>
             </div>
             <a
@@ -111,7 +133,7 @@ export default function Footer() {
         <div className={`footer__bottom cleared fadeInUpS wow${vis}`}>
 
           <div className="footer__bottom__left">
-            &copy;2026 Pipe Monkeys. All rights reserved.
+            &copy;2026 H&amp;A NYC Electrician. All rights reserved.
           </div>
 
           <div className="footer__bottom__center">
@@ -124,8 +146,21 @@ export default function Footer() {
             <ul className="footer__socials">
               {socials.map((s) => (
                 <li key={s.label}>
-                  <a rel="noopener noreferrer" href={s.href} target="_blank">
-                    <i className={s.icon} aria-hidden="true" />
+                  <a rel="noopener noreferrer" href={s.href} target="_blank" aria-label={s.label}>
+                    {s.type === "icon" ? (
+                      <i className={s.icon} aria-hidden="true" />
+                    ) : (
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        style={{ display: "block" }}
+                      >
+                        <path d={s.svgPath} />
+                      </svg>
+                    )}
                     <span className="sr-only">{s.label}</span>
                   </a>
                 </li>

@@ -2,195 +2,145 @@
 
 import { useRef } from "react";
 import { useInView } from "framer-motion";
+import CraftHero from "@/components/custom/craft-catalog/CraftHero";
+import SecondaryButton from "@/components/custom/buttons/SecondaryButton";
 
-/* ── Service Area Data ──────────────────────────────────────── */
+type AreaSection = {
+  slug: string;
+  region: string;
+  headline: string;
+  description: string;
+  callouts: string[];
+  neighborhoods: string[];
+};
 
-const areas = [
+const areas: AreaSection[] = [
   {
-    slug: "brooklyn",
-    region: "Brooklyn",
-    headline: "Drain & Sewer Specialists in Brooklyn",
+    slug: "upper-manhattan",
+    region: "Upper Manhattan",
+    headline: "Licensed Electrical Service — Washington Heights, Harlem & Inwood",
     description:
-      "Brooklyn has some of the oldest plumbing infrastructure in New York — pre-war pipe systems, clay drain lines in brownstones, and cast iron stacks in walk-ups that have been running for 80+ years. Our techs know exactly what to expect when they pull up to a building in Park Slope vs. Bay Ridge, and they arrive with the right equipment the first time.",
+      "H&A NYC Electrician serves all of Upper Manhattan — from Inwood and Fort George in the north to Harlem, East Harlem, and Morningside Heights. We work in pre-war buildings, multi-family homes, and commercial spaces throughout the area.",
     callouts: [
-      "Brownstone & pre-war walk-up specialists",
-      "Stack drain issues in multi-family buildings",
-      "Same-day service, all neighborhoods",
+      "24/7 availability — no overtime charges",
+      "Panel upgrades common in pre-war walk-ups",
+      "Knob-and-tube and cloth wire replacement specialists",
     ],
-    neighborhoods:
-      "Williamsburg • Greenpoint • Bushwick • Bed-Stuy • Crown Heights • Park Slope • Sunset Park • Bay Ridge • Bensonhurst • Dyker Heights • Gravesend • Sheepshead Bay • Coney Island • Flatbush • Canarsie • East New York & More",
+    neighborhoods: [
+      "Inwood", "Fort George", "Washington Heights", "Hudson Heights",
+      "Hamilton Heights", "Sugar Hill", "West Harlem", "Harlem",
+      "Central Harlem", "East Harlem", "Manhattanville", "Marble Hill",
+      "Morningside Heights", "St. Nicholas Historic District",
+      "Marcus Garvey Park", "LePetit Senegal", "Mount Morris Historical District",
+    ],
   },
   {
-    slug: "queens",
-    region: "Queens",
-    headline: "Drain & Sewer Specialists in Queens",
+    slug: "midtown-manhattan",
+    region: "Midtown Manhattan",
+    headline: "Licensed Electrical Service — Midtown, Hell's Kitchen & Murray Hill",
     description:
-      "Queens covers one of the widest mixes of home types in the entire city — from single-family houses in Whitestone and Bayside to dense apartment buildings in Astoria and Flushing. Our team handles everything from slow kitchen drains in a LIC condo to main line backups in a multi-unit Jackson Heights walk-up.",
+      "From Hell's Kitchen and Chelsea to Midtown, Murray Hill, and Kips Bay — H&A NYC Electrician handles residential and commercial electrical work throughout the heart of Manhattan. We serve apartment buildings, commercial offices, restaurants, and retail spaces.",
     callouts: [
-      "Single-family homes to large apartment buildings",
-      "Grease line clearing for restaurants & commercial kitchens",
-      "Emergency same-day response across all of Queens",
+      "Commercial and residential work",
+      "Flexible scheduling around business hours",
+      "EV charger installations and panel upgrades",
     ],
-    neighborhoods:
-      "Astoria • LIC • Maspeth • Flushing • Whitestone • Bayside • Forest Hills • Rego Park • Jackson Heights • Elmhurst • Middle Village • Ridgewood • Woodside • Sunnyside • Jamaica • Howard Beach & More",
+    neighborhoods: [
+      "Hudson Yards", "Hell's Kitchen", "Chelsea", "Flatiron District",
+      "NoMad", "Gramercy Park", "Stuyvesant Square", "Union Square",
+      "Stuyvesant Town", "Peter Cooper Village", "Kips Bay", "Rose Hill",
+      "Murray Hill", "Midtown West", "Midtown East", "Turtle Bay",
+      "Tudor City", "Waterside Plaza", "Lincoln Square", "Manhattan Valley",
+      "Lenox Hill", "Carnegie Hill", "Yorkville", "Upper East Side",
+      "Upper West Side",
+    ],
   },
   {
-    slug: "nassau-county",
-    region: "Nassau County",
-    headline: "Drain & Sewer Specialists in Nassau County",
+    slug: "lower-manhattan",
+    region: "Lower Manhattan",
+    headline: "Licensed Electrical Service — SoHo, Tribeca, Financial District & Beyond",
     description:
-      "Nassau County homes sit on longer sewer runs than most NYC properties, and mature tree root systems along those lines are one of the leading causes of main line backups. Our technicians understand how Nassau systems are laid out, where clogs typically form, and how to clear them without damaging the pipe.",
+      "H&A NYC Electrician serves all of Lower Manhattan — from SoHo, Tribeca, and the Financial District to the Lower East Side, Chinatown, and Battery Park City. We handle residential lofts, commercial buildings, and everything in between.",
     callouts: [
-      "Root intrusion specialists for Nassau main lines",
-      "Hydro jetting for long sewer runs",
-      "Local techs — not dispatched from far away",
+      "Loft and converted commercial space experience",
+      "Financial District commercial and residential work",
+      "Battery Park City and Tribeca specialists",
     ],
-    neighborhoods:
-      "Valley Stream • Elmont • Franklin Square • West Hempstead • Hempstead • Garden City • Mineola • New Hyde Park • Floral Park • Rockville Centre • Oceanside • Baldwin • Freeport • Merrick • Bellmore • Wantagh • Seaford • Massapequa • Levittown • East Meadow • Uniondale • Lynbrook • Malverne • Hewlett & More",
+    neighborhoods: [
+      "SoHo", "Nolita", "Little Italy", "Chinatown", "Lower East Side",
+      "East Village", "West Village", "Greenwich Village", "NoHo",
+      "Bowery", "Two Bridges", "Tribeca", "Financial District",
+      "Civic Center", "South Street Seaport", "Battery Park City",
+      "Little Syria", "Cooperative Village", "Alphabet City", "Loisaida",
+      "Meatpacking District", "Toy District", "Photo District",
+    ],
   },
 ];
 
-/* ── Sub-components ─────────────────────────────────────────── */
-
-function AreaSection({ area, reversed }: { area: typeof areas[number]; reversed: boolean }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
-  const vis = inView ? " is-visible" : "";
-
+function AreaSection({ area, vis }: { area: AreaSection; vis: string }) {
   return (
     <div
-      ref={ref}
-      id={area.slug}
-      className={`content-block-flex flex-module fadeIn wow${vis}`}
-      style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}
+      style={{ paddingBottom: "3rem", marginBottom: "3rem", borderBottom: "1px solid #e5e7eb" }}
     >
-      <div className="inner inner--slim-1172">
-        <div className="content-block-head wide">
-          <h2 className={`h3 fadeInUpS wow${vis}`} style={{ animationDelay: "0.1s" }}>
-            {area.headline}
-          </h2>
-        </div>
-        <div className="content-block-in wide">
-          <div className="content-block-text content-entry p2 full-width">
-            <p>{area.description}</p>
-            <ul>
-              {area.callouts.map((c) => (
-                <li key={c}>{c}</li>
-              ))}
-            </ul>
-            <p>
-              <strong>Neighborhoods served:</strong> {area.neighborhoods}
-            </p>
-            <p>
-              Not sure if we cover your street?{" "}
-              <a href="tel:7187491830" className="ia-link">Call (718) 749-1830</a>{" "}
-              — we almost certainly do.
-            </p>
-          </div>
-        </div>
+      <div className="sub-heading">{area.region}</div>
+      <h2 className={`h3 fadeInUpS wow${vis}`} style={{ marginBottom: "1rem" }}>
+        {area.headline}
+      </h2>
+      <p className={`p2 fadeInUpS wow${vis}`} style={{ marginBottom: "1.5rem", maxWidth: "72rem" }}>
+        {area.description}
+      </p>
+      <ul className={`fadeInUpS wow${vis}`} style={{ marginBottom: "1.5rem", paddingLeft: "1.5rem" }}>
+        {area.callouts.map((c) => (
+          <li key={c} className="p3" style={{ marginBottom: "0.4rem" }}>{c}</li>
+        ))}
+      </ul>
+      <div className={`fadeInUpS wow${vis}`}>
+        <p className="p3 ia-medium" style={{ marginBottom: "0.5rem" }}>
+          Neighborhoods served:
+        </p>
+        <p className="p3" style={{ lineHeight: 1.8 }}>
+          {area.neighborhoods.join(" • ")}
+        </p>
       </div>
     </div>
   );
 }
 
-/* ── Page ───────────────────────────────────────────────────── */
-
 export default function ServiceAreasPage() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const heroInView = useInView(heroRef, { once: true, margin: "0px 0px -60px 0px" });
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const ctaInView = useInView(ctaRef, { once: true, margin: "0px 0px -60px 0px" });
-
-  const heroVis = heroInView ? " is-visible" : "";
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
+  const vis = inView ? " is-visible" : "";
 
   return (
     <main className="pt-76 max-[1150px]:pt-[6.2rem]">
 
-      {/* ── Hero ── */}
-      <div ref={heroRef} className={`hero-org flex-module fadeIn wow${heroVis}`}>
-        <div className="hero-org__top ia-bg-dark">
-          <div className="inner inner--slim-1172">
-            <div className={`breadcrumbs ia-sky fadeInUpS wow${heroVis}`}>
-              <span><a href="/">Home</a></span>
-              <em>&gt;</em>
-              <span className="post post-page current-item">Service Areas</span>
-            </div>
-            <h1 className={`ia-white ia-margin-0 fadeInUpS wow${heroVis}`} style={{ animationDelay: "0.1s" }}>
-              We Come to You
-            </h1>
-          </div>
-        </div>
+      <CraftHero
+        title="Service Areas"
+        bgImage="/images/IMG_9688-1024x682.jpg"
+        breadcrumbs={[{ label: "Service Areas" }]}
+      />
 
-        <div className="hero-org__bottom flex-module">
-          <div className="inner inner--slim-1172 cleared">
-            <div className={`hero-org__left wow${heroVis}`}>
-              <div className={`sub-heading fadeInUpS wow${heroVis}`}>Coverage Area</div>
-              <div className={`content-entry fadeInUpS wow${heroVis}`} style={{ animationDelay: "0.1s" }}>
-                <p>
-                  Pipe Monkeys serves all of Brooklyn, Queens, and Nassau County. We don&apos;t
-                  subcontract — our own techs cover every neighborhood, every day, seven days a week.
-                  Same-day scheduling is available across our entire service area.
-                </p>
-              </div>
-            </div>
-
-            <div className="hero-org__right">
-              <div className={`sub-heading fadeInUpS wow${heroVis}`} style={{ animationDelay: "0.1s" }}>
-                Jump to Area
-              </div>
-              <ul className="quick-links" role="list">
-                {areas.map((area, i) => (
-                  <li key={area.slug} className={`fadeInUpS wow${heroVis}`} style={{ animationDelay: `${0.1 + i * 0.1}s` }}>
-                    <a className="ia-link ia-link--arrow" href={`#${area.slug}`}>
-                      <i className="icon-link" />
-                      <span>{area.region}</span>
-                    </a>
-                  </li>
-                ))}
-                <li className={`fadeInUpS wow${heroVis}`} style={{ animationDelay: "0.4s" }}>
-                  <a className="ia-link ia-link--arrow" href="tel:7187491830">
-                    <i className="icon-link" />
-                    <span>Call (718) 749-1830</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Area Sections ── */}
-      {areas.map((area, i) => (
-        <AreaSection key={area.slug} area={area} reversed={i % 2 !== 0} />
-      ))}
-
-      {/* ── CTA ── */}
-      <div
-        ref={ctaRef}
-        className={`front-donation ia-bg-sky flex-module wow fadeInUpS${ctaInView ? " is-visible" : ""}`}
-      >
+      <div ref={ref} className={`content-block-flex flex-module fadeIn wow${vis}`}>
         <div className="inner inner--slim-1172">
-          <div className={`sub-heading wow fadeInUpS${ctaInView ? " is-visible" : ""}`} style={{ animationDelay: "0.1s" }}>
-            Not Sure If We Cover You?
-          </div>
-          <h2 className={`h2 wow fadeInUpS${ctaInView ? " is-visible" : ""}`} style={{ animationDelay: "0.2s" }}>
-            Just Call — We Almost Certainly Do
+
+          <h2 className={`h3 fadeInUpS wow${vis}`} style={{ marginBottom: "0.5rem" }}>
+            We Cover All of Manhattan
           </h2>
-          <div className={`front-donation__in wow fadeInUpS${ctaInView ? " is-visible" : ""}`} style={{ animationDelay: "0.2s" }}>
-            <div className="content-entry">
-              <p>
-                Our dispatch is fast and our coverage is wide. Call <strong>(718) 749-1830</strong> and
-                we&apos;ll confirm in 30 seconds and get you on the schedule the same day.
-              </p>
-            </div>
-            <div className="front-donation__btn-wrap">
-              <div className="front-donation__btn">
-                <a className="btn btn--primary" href="tel:7187491830">
-                  Call (718) 749-1830
-                </a>
-              </div>
-            </div>
+          <p className={`p2 fadeInUpS wow${vis}`} style={{ marginBottom: "3rem", maxWidth: "68rem" }}>
+            H&amp;A NYC Electrician serves every neighborhood in Manhattan — from Inwood
+            in the north to Battery Park City in the south. If you&rsquo;re in Manhattan
+            and have an electrical issue, we cover your area. Available Mon&ndash;Sun,
+            24 hours, with no overtime charges.
+          </p>
+
+          {areas.map((area) => (
+            <AreaSection key={area.slug} area={area} vis={vis} />
+          ))}
+
+          <div style={{ paddingTop: "2rem", textAlign: "center" }}>
+            <SecondaryButton label="Call (646) 351-0882" href="tel:6463510882" />
           </div>
+
         </div>
       </div>
 
