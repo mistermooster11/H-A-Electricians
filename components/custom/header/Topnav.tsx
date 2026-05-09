@@ -1,8 +1,10 @@
 "use client";
 
-import Link from "next/link";
+type TopnavProps = {
+  onMobileMenuClick?: () => void;
+};
 
-export default function Topnav() {
+export default function Topnav({ onMobileMenuClick }: TopnavProps) {
   return (
     <div className="ia-topnav">
       <div className="inner">
