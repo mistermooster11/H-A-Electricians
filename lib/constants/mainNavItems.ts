@@ -3,7 +3,7 @@ export type NavDropdown = {
   titleHref: string;
   description: string;
   links: { label: string; href: string; external?: boolean }[];
-  quickLinks?: { label: string; href: string; external?: boolean }[];
+  quickLinks?: { label: string; href: string; external?: boolean; icon?: string }[];
 };
 
 export type MainNavItem = {

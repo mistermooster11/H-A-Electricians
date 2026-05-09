@@ -50,7 +50,7 @@ interface NavDropdownLeftProps {
             label: string;
             href: string;
             external?: boolean;
-            icon: string;
+            icon?: string;
         }>;
         links: Array<{
             label: string;
@@ -81,7 +81,7 @@ const NavDropdownRight:React.FC<NavDropdownLeftProps> = ({ dd }) => {
                 >
                   {/* ia-link--arrow icon — Lucide SVG, fromLeftRoll on hover */}
                   {(() => {
-                    const IconComp = ICON_MAP[ql.icon];
+                    const IconComp = ql.icon ? ICON_MAP[ql.icon] : null;
                     return IconComp ? (
                       <span className="absolute -left-[2.2rem] top-[0.2rem] text-brand-orange overflow-hidden group-hover/ql:animate-[fromLeftRoll_0.5s_forwards]">
                         <IconComp size={15} strokeWidth={2} />

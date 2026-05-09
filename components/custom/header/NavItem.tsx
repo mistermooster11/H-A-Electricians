@@ -22,7 +22,7 @@ interface NavItemProps {
                 label: string;
                 href: string;
                 external?: boolean;
-                icon: string;
+                icon?: string;
             }>;
             description: string;
             links: Array<{
