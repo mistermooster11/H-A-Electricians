@@ -113,7 +113,7 @@ export default function FAQPage() {
                       flexShrink: 0,
                       fontSize: "2rem",
                       lineHeight: 1,
-                      color: "#e07b39",
+                      color: "#61CE70",
                       transform: openIndex === i ? "rotate(45deg)" : "rotate(0deg)",
                       transition: "transform 0.25s ease",
                     }}

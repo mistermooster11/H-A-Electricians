@@ -68,7 +68,7 @@ export default function GalleryPage() {
                     aspectRatio: "4/3",
                     overflow: "hidden",
                     borderRadius: "6px",
-                    backgroundColor: "#101d2b",
+                    backgroundColor: "#ffffff",
                   }}
                 >
                   <img
