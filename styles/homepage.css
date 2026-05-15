@@ -164,7 +164,7 @@
 .ia-btn--dark .ia-b,
 .ia-btn--dark::before { background: #61CE70; }
 .ia-btn--dark::after  { background: #fff; }
-.ia-btn--dark:hover   { color: #ED0100; }
+.ia-btn--dark:hover   { color: #133380; }
 
 /* ============================================================
    WOW animation: border elements start at 0, draw clockwise
