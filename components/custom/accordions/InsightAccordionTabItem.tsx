@@ -51,7 +51,7 @@ const InsightAccordionItem: React.FC<InsightAccordionItemProps> = ({
           >
             {item.description}
           </p>
-          <Link href={item.learnHref} className="ia-link" style={{ fontSize: '1.3rem' }}>
+          <Link href={item.learnHref} className="ia-link" style={{ fontSize: '1.3rem', color: '#61CE70' }}>
             <span>Full Service Details →</span>
           </Link>
 

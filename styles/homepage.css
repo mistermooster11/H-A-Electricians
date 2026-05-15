@@ -552,6 +552,7 @@
 }
 
 .accordion-item__desc { padding: 0 6.8rem 3rem 6.8rem; margin-top: -2rem; }
+.accordion-item__desc .ia-link { color: #61CE70; }
 .accordion-item__link { margin-bottom: .8rem; }
 
 /* ============================================================
