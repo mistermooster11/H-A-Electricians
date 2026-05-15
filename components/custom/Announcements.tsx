@@ -45,7 +45,7 @@ export default function Announcements() {
                   display: 'block',
                   width: '100%',
                   height: '100%',
-                  backgroundColor: '#101d2b',
+                  backgroundColor: '#ffffff',
                 }}
               />
               {/* [TODO: Replace with H&A NYC Electrician team or job site photo] */}

@@ -104,7 +104,7 @@ export default function BlogPage() {
                 <p className="p3" style={{ lineHeight: 1.7, fontSize: "1.4rem", color: "#555" }}>
                   {post.excerpt}
                 </p>
-                <span style={{ fontSize: "1.3rem", color: "#e07b39", fontWeight: 600 }}>
+                <span style={{ fontSize: "1.3rem", color: "#61CE70", fontWeight: 600 }}>
                   [TODO: Link to full article]
                 </span>
               </article>
