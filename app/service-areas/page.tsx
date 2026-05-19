@@ -116,7 +116,7 @@ export default function ServiceAreasPage() {
 
       <CraftHero
         title="Service Areas"
-        bgImage="/images/IMG_9688-1024x682.jpg"
+        bgImage="https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg"
         breadcrumbs={[{ label: "Service Areas" }]}
       />
 

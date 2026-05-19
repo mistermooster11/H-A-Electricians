@@ -5,8 +5,22 @@ import CraftOverview  from "@/components/custom/craft-catalog/CraftOverview";
 import RelatedCrafts  from "@/components/custom/craft-catalog/RelatedCrafts";
 import { servicePages } from "@/data/craft-catalog/service-pages";
 
-// [TODO: Replace PLACEHOLDER_BG with a real service photo per slug before launch]
-const PLACEHOLDER_BG = "/images/IMG_9688-1024x682.jpg";
+// Per-service background images sourced from bestnycelectricianmanhattan.com
+const SERVICE_BG: Record<string, string> = {
+  "panel-upgrades":            "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Panel-Breaker-Replacement.jpg",
+  "home-rewires":              "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Residential-Electrical-Rewiring.png",
+  "ev-charger-installation":   "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Electric-Charging-at-home.png",
+  "generator-installation":    "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Generator-Installation.png",
+  "electrical-troubleshooting":"https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Electrical-troubleshooting.png",
+  "home-safety-inspections":   "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Home-Safety-Inspection.jpg",
+  "surge-protection":          "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Power-Surge-Protector.png",
+  "knob-and-tube-replacement": "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Knob-and-Tubing-Replacement.png",
+  "aluminum-wire-replacement": "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Aluminum-Wiring-Replacement.png",
+  "lighting-installation":     "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Lighting-Installation-Service.png",
+  "residential-electrician":   "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Residential-Electrical-Rewiring.png",
+  "commercial-electrician":    "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Commercial-Electrical-Services.jpg",
+};
+const PLACEHOLDER_BG = "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg";
 
 export function generateStaticParams() {
   return Object.keys(servicePages).map((slug) => ({ slug }));
@@ -39,7 +53,7 @@ export default async function ServiceDetailPage({
     <main className="pt-76 max-[1150px]:pt-[6.2rem]">
       <CraftHero
         title={data.title}
-        bgImage={PLACEHOLDER_BG}
+        bgImage={SERVICE_BG[slug] ?? PLACEHOLDER_BG}
         breadcrumbs={[
           { label: "Services", href: "/craft-catalog" },
           { label: data.title },

@@ -13,8 +13,7 @@ export const accordionItems: AccordionItem[] = [
   {
     id: "accordion-0",
     title: "200 Amp Panel Upgrades",
-    image: "/images/IMG_9688-1024x682.jpg",
-    // [TODO: Replace with H&A panel upgrade job photo]
+    image: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Panel-Breaker-Replacement.jpg",
     description:
       "Older Manhattan homes run on 60–100 amp panels that can't keep up with modern appliances, AC units, or EV chargers. We upgrade to 200-amp service with all permits pulled and inspections passed.",
     learnHref: "/craft-catalog/panel-upgrades",
@@ -28,8 +27,7 @@ export const accordionItems: AccordionItem[] = [
   {
     id: "accordion-1",
     title: "Home Rewires",
-    image: "/images/IMG_9750-1024x683.jpg",
-    // [TODO: Replace with H&A rewire job photo]
+    image: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Residential-Electrical-Rewiring.png",
     description:
       "Knob-and-tube, aluminum, and cloth-insulated wiring are fire hazards that insurers increasingly refuse to cover. We replace legacy wiring with modern copper throughout Manhattan homes — fully permitted and inspected.",
     learnHref: "/craft-catalog/home-rewires",
@@ -43,8 +41,7 @@ export const accordionItems: AccordionItem[] = [
   {
     id: "accordion-2",
     title: "EV Charger Installation",
-    image: "/images/IMG_9688-1024x682.jpg",
-    // [TODO: Replace with H&A EV charger job photo]
+    image: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Electric-Charging-at-home.png",
     description:
       "A Level 2 charger needs a dedicated 240V circuit — we assess your panel first, handle any necessary upgrade, then install the circuit and charger at your parking location. Same-day installation available in many cases.",
     learnHref: "/craft-catalog/ev-charger-installation",
@@ -58,8 +55,7 @@ export const accordionItems: AccordionItem[] = [
   {
     id: "accordion-3",
     title: "Electrical Troubleshooting",
-    image: "/images/IMG_9750-1024x683.jpg",
-    // [TODO: Replace with H&A troubleshooting/service call photo]
+    image: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Electrical-troubleshooting.png",
     description:
       "Dead outlets, breakers that won't reset, flickering lights, or a burning smell near a panel — we diagnose the root cause and fix it right the first time. Free over-the-phone help available before you book.",
     learnHref: "/craft-catalog/electrical-troubleshooting",

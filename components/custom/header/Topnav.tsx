@@ -13,7 +13,7 @@ export default function Topnav({ onMobileMenuClick }: TopnavProps) {
 
         {/* Mobile logo */}
         <Link href="/" className="block lg:hidden float-left" aria-label="H&A NYC Electrician">
-          <img src="/logos/logo-long.svg" alt="H&A NYC Electrician" className="block h-[3.6rem]" />
+          <img src="/logos/H-A_logo-redesign.png" alt="H&A NYC Electrician" className="block h-[3.6rem] w-auto" />
         </Link>
 
         {/* Phone number — centered on desktop */}

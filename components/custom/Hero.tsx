@@ -109,20 +109,13 @@ export default function Hero() {
                   visible ? 'h-full scale-100' : 'h-0 scale-[1.2]',
                 ].join(' ')}
               >
-                {/* [TODO: Replace with H&A NYC Electrician hero image or video] */}
-                <video
-                  loop
-                  autoPlay
-                  muted
-                  playsInline
-                  preload="none"
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-[200%]"
-                >
-                  <source
-                    src="https://www.nccer.org/media/2023/03/Hero-Website-Video-3.mp4"
-                    type="video/mp4"
-                  />
-                </video>
+                {/* Hero background — H&A NYC Electrician job site photo */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg"
+                  alt="H&A NYC Electrician licensed technicians installing electrical wiring"
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-[200%] object-cover"
+                />
               </div>
             </div>
 

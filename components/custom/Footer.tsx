@@ -54,12 +54,12 @@ export default function Footer() {
         <div className={`footer__logo fadeInUpS wow${vis}`}>
           <a href="/">
             <span className="sr-only">H&amp;A NYC Electrician</span>
-            {/* [TODO: Replace with H&A NYC Electrician logo file] */}
             <img
-              src="/logos/logo-long.svg"
+              src="/logos/H-A_logo-redesign.png"
               alt="H&A NYC Electrician"
               width="220"
               height="48"
+              style={{ width: 220, height: 'auto' }}
             />
           </a>
         </div>

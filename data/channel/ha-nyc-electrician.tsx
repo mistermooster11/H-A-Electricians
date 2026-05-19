@@ -13,8 +13,7 @@ const haNycElectrician: ChannelPageData = {
   hero: {
     title: "H&A NYC Electrician — Manhattan's Licensed Electrical Contractors",
     breadcrumbLabel: "About Us",
-    imageBg: `url(/images/IMG_9688-1024x682.jpg) no-repeat center/cover`,
-    // [TODO: Replace with H&A NYC Electrician job site or team photo]
+    imageBg: `url(https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2020/03/long_island_electricians.jpg) no-repeat center/cover`,
     description: (
       <p>
         H&amp;A NYC Electrician is a licensed, insured electrical contracting firm
@@ -111,8 +110,7 @@ const haNycElectrician: ChannelPageData = {
   },
 
   flexFeature: {
-    // [TODO: Replace with H&A NYC Electrician team or job site photo]
-    imageSrc: "/images/iStock-1220765707-443x559-1.jpg",
+    imageSrc: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Panel-Breaker-Replacement.jpg",
     title: "24/7 Electrical Service — No Overtime Charges",
     body: (
       <p>

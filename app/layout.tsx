@@ -50,9 +50,9 @@ export const metadata: Metadata = {
       "Licensed, insured electrical contractors serving all of Manhattan 24/7. Panel upgrades, home rewires, EV chargers, generators & more. Free quotes, upfront pricing.",
     images: [
       {
-        url: "/images/IMG_9688-1024x682.jpg",
-        width: 1024,
-        height: 682,
+        url: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg",
+        width: 611,
+        height: 408,
         alt: "H&A NYC Electrician — Manhattan Licensed Electrical Contractors",
       },
     ],
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "H&A NYC Electrician — Licensed Manhattan Electrical Contractors",
     description:
       "Licensed, insured electrical contractors serving all of Manhattan 24/7. Panel upgrades, home rewires, EV chargers & more. Free quotes.",
-    images: ["/images/IMG_9688-1024x682.jpg"],
+    images: ["https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg"],
   },
   robots: {
     index: true,
@@ -84,7 +84,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "Electrician",
   name: "H&A NYC Electrician",
-  image: `${BASE_URL}/images/IMG_9688-1024x682.jpg`,
+  image: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg",
   "@id": BASE_URL,
   url: BASE_URL,
   telephone: "+16463510882",

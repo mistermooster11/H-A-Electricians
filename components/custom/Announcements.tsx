@@ -38,7 +38,7 @@ export default function Announcements() {
             <div>
               <span
                 style={{
-                  backgroundImage: 'url(/images/IMG_9688-1024x682.jpg)',
+                  backgroundImage: 'url(https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg)',
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: '50% 50%',
                   backgroundSize: 'cover',
@@ -48,7 +48,6 @@ export default function Announcements() {
                   backgroundColor: '#ffffff',
                 }}
               />
-              {/* [TODO: Replace with H&A NYC Electrician team or job site photo] */}
             </div>
           </div>
 

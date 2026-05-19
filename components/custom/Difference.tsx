@@ -44,8 +44,7 @@ export default function Difference() {
           {/* Right: photo */}
           <div className="w-full md:w-[54%] shrink-0 relative z-20">
             <div className="front-difference__image">
-              {/* [TODO: Replace with H&A NYC Electrician job site or team photo] */}
-              <VapeImage src="/images/IMG_9750-1024x683.jpg" />
+              <VapeImage src="https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Commercial-Electrical-Services.jpg" />
             </div>
           </div>
 

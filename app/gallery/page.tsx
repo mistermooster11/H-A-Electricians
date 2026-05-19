@@ -7,23 +7,19 @@ import CraftHero from "@/components/custom/craft-catalog/CraftHero";
 const galleryItems = [
   {
     label: "200 Amp Panel Upgrade",
-    image: "/images/IMG_9688-1024x682.jpg",
-    // [TODO: Replace with real H&A NYC Electrician panel upgrade photo]
+    image: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Panel-Breaker-Replacement.jpg",
   },
   {
     label: "Home Rewire — Pre-War Manhattan Apartment",
-    image: "/images/IMG_9750-1024x683.jpg",
-    // [TODO: Replace with real H&A NYC Electrician rewire job photo]
+    image: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Residential-Electrical-Rewiring.png",
   },
   {
     label: "EV Charger Installation",
-    image: "/images/IMG_9688-1024x682.jpg",
-    // [TODO: Replace with real H&A NYC Electrician EV charger install photo]
+    image: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Electric-Charging-at-home.png",
   },
   {
     label: "Lighting Installation & Dimmer Setup",
-    image: "/images/IMG_9750-1024x683.jpg",
-    // [TODO: Replace with real H&A NYC Electrician lighting job photo]
+    image: "https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Lighting-Installation-Service.png",
   },
 ];
 
@@ -37,7 +33,7 @@ export default function GalleryPage() {
 
       <CraftHero
         title="Before & After Gallery"
-        bgImage="/images/IMG_9688-1024x682.jpg"
+        bgImage="https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg"
         breadcrumbs={[{ label: "Gallery" }]}
       />
 
