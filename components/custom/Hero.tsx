@@ -109,12 +109,14 @@ export default function Hero() {
                   visible ? 'h-full scale-100' : 'h-0 scale-[1.2]',
                 ].join(' ')}
               >
-                {/* Hero background — H&A NYC Electrician job site photo */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg"
-                  alt="H&A NYC Electrician licensed technicians installing electrical wiring"
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-[200%] object-cover"
+                {/* Hero background — Cloudflare Stream video */}
+                <iframe
+                  src="https://customer-ip9lnkk65px0t3ak.cloudflarestream.com/47018312df342b93222ce62fba214c18/iframe?autoplay=true&muted=true&loop=true&controls=false&preload=true"
+                  title="H&A NYC Electrician licensed technicians installing electrical wiring"
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                  allowFullScreen
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-[200%] border-0 pointer-events-none"
+                  style={{ aspectRatio: '16/9' }}
                 />
               </div>
             </div>
