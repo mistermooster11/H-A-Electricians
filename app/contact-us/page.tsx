@@ -1,249 +1,39 @@
-"use client";
+import type { Metadata } from "next";
+import "@/styles/homepage.css";
+import "@/styles/inner-pages.css";
+import PageHeroSection from "@/components/custom/page-hero/PageHeroSection";
+import ContactSection from "@/components/custom/contact/ContactSection";
 
-import { useRef } from "react";
-import { useInView } from "framer-motion";
-import { useWowAnimation } from "@/hooks/useWowAnimation";
-import CraftHero from "@/components/custom/craft-catalog/CraftHero";
+export const metadata: Metadata = {
+  title: "Contact H&A NYC Electrician | Free Electrical Quote",
+  description:
+    "Contact H&A NYC Electrician for a free electrical quote in Manhattan. Available 24/7, no extra charge for emergencies. Call (646) 351-0882 or fill out our form.",
+};
 
-/* ── Styled submit button ── */
-function SubmitBtn() {
-  const btnRef = useWowAnimation<HTMLButtonElement>("contact-submit-btn", true);
-  return (
-    <button
-      ref={btnRef}
-      type="submit"
-      className="ia-btn wow"
-      style={{ cursor: "pointer", fontFamily: "inherit" }}
-    >
-      <em className="ia-b ia-b-1" />
-      <em className="ia-b ia-b-2" />
-      <em className="ia-b ia-b-3" />
-      <em className="ia-b ia-b-4" />
-      <span>Send Message</span>
-    </button>
-  );
-}
-
-/* ── Page ── */
 export default function ContactPage() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const sectionInView = useInView(sectionRef, { once: true, margin: "0px 0px -60px 0px" });
-  const vis = sectionInView ? " is-visible" : "";
-
   return (
-    <main className="pt-76 max-[1150px]:pt-[6.2rem]">
-
-      {/* ── Hero ── */}
-      <CraftHero
+    <>
+      <PageHeroSection
         title="Contact Us"
-        bgImage="https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg"
-        breadcrumbs={[{ label: "Contact Us" }]}
+        subtitle="Call (646) 351-0882 or fill out the form below. Available 24/7, no extra charge for emergency calls."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Contact" },
+        ]}
       />
-
-      {/* ── Contact Form + Map ── */}
-      <div ref={sectionRef} className={`content-block-flex flex-module fadeIn wow${vis}`}>
-        <div className="inner inner--slim-1172">
-
-          <h2
-            className={`h3 fadeInUpS wow${vis}`}
-            style={{ animationDelay: "0.1s", marginBottom: "0.5rem" }}
-          >
-            Schedule Service or Get a Free Estimate
-          </h2>
-          <p
-            className={`p2 fadeInUpS wow${vis}`}
-            style={{ animationDelay: "0.15s", marginBottom: "2.5rem" }}
-          >
-            Fill out the form below or call us directly at{" "}
-            <strong>(646) 351-0882</strong>. We respond fast — usually within
-            the hour. Available Mon–Sun, 24 hours.
-          </p>
-
-          {/* Two-column: form left, map + info right. Stacks on mobile. */}
-          <div className="contact-layout-grid">
-
-            {/* ── Form ── */}
-            <div
-              className={`fadeInUpS wow${vis} contact-form-col`}
-              style={{ animationDelay: "0.2s" }}
-            >
-              {/* TODO: Replace with real form backend (Gravity Forms, JotForm, HubSpot, etc.) */}
-              <form
-                action="#"
-                method="POST"
-                className="contact-form-inner"
-              >
-                <div className="form-row-2col">
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    <label htmlFor="name" className="p3 ia-medium">Name *</label>
-                    <input
-                      id="name" name="name" type="text" required
-                      placeholder="Your full name"
-                      style={{ padding: "0.75rem 1rem", border: "1px solid #ccc", borderRadius: "4px", fontSize: "1.4rem" }}
-                    />
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    <label htmlFor="phone" className="p3 ia-medium">Phone *</label>
-                    <input
-                      id="phone" name="phone" type="tel" required
-                      placeholder="(555) 000-0000"
-                      style={{ padding: "0.75rem 1rem", border: "1px solid #ccc", borderRadius: "4px", fontSize: "1.4rem" }}
-                    />
-                  </div>
-                </div>
-
-                <div className="form-row-2col">
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    <label htmlFor="email" className="p3 ia-medium">Email</label>
-                    <input
-                      id="email" name="email" type="email"
-                      placeholder="you@example.com"
-                      style={{ padding: "0.75rem 1rem", border: "1px solid #ccc", borderRadius: "4px", fontSize: "1.4rem" }}
-                    />
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    <label htmlFor="service" className="p3 ia-medium">Service Needed</label>
-                    <select
-                      id="service" name="service"
-                      style={{ padding: "0.75rem 1rem", border: "1px solid #ccc", borderRadius: "4px", fontSize: "1.4rem", background: "white" }}
-                    >
-                      <option value="">Select a service…</option>
-                      <option>Residential Electrician</option>
-                      <option>Commercial Electrician</option>
-                      <option>200 Amp Panel Upgrade</option>
-                      <option>Home Rewire</option>
-                      <option>Aluminum Wire Replacement</option>
-                      <option>Knob &amp; Tube Replacement</option>
-                      <option>Cloth Wire Replacement</option>
-                      <option>EV Charger Installation</option>
-                      <option>Generator Installation</option>
-                      <option>Electrical Circuit Installation</option>
-                      <option>Lighting Installation</option>
-                      <option>Ceiling Fan Installation</option>
-                      <option>Landscaping Lighting</option>
-                      <option>GFI Outlets</option>
-                      <option>Grounding Service</option>
-                      <option>Whole House Surge Protection</option>
-                      <option>Home Safety Inspection</option>
-                      <option>Electrical Troubleshooting</option>
-                      <option>Smoke Detector Installation</option>
-                      <option>Remodel &amp; Renovation</option>
-                      <option>Property Management</option>
-                      <option>Service Call</option>
-                      <option>Not Sure / Other</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="contact-message-wrap">
-                  <label htmlFor="message" className="p3 ia-medium">Message</label>
-                  <textarea
-                    id="message" name="message"
-                    placeholder="Describe the issue — what's happening and where in Manhattan?"
-                    className="contact-textarea-grow"
-                    style={{ padding: "0.75rem 1rem", border: "1px solid #ccc", borderRadius: "4px", fontSize: "1.4rem", resize: "vertical", minHeight: "120px" }}
-                  />
-                </div>
-
-                <div>
-                  <SubmitBtn />
-                </div>
-              </form>
-            </div>
-
-            {/* ── Map + Info ── */}
-            <div className={`fadeInUpS wow${vis}`} style={{ animationDelay: "0.3s" }}>
-              <iframe
-                title="H&A NYC Electrician — Manhattan, NY"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.11976373946229!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2588f046ee661%3A0xa0b3281fcecc08c!2sManhattan%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1715000000000!5m2!1sen!2sus"
-                width="100%"
-                height="340"
-                style={{ border: 0, display: "block", borderRadius: "6px" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-              <div className="p3 ia-medium" style={{ marginTop: "1.25rem", lineHeight: "1.7" }}>
-                <strong>H&amp;A NYC Electrician</strong><br />
-                40 Fulton Street, New York, NY 10038<br />
-                <a href="tel:6463510882" style={{ color: "inherit" }}>(646) 351-0882</a><br />
-                Mon–Sun: 24 Hours
-              </div>
-            </div>
-
-          </div>
-        </div>
+      <ContactSection />
+      <div className="contact-map">
+        <iframe
+          title="H&A NYC Electrician — Manhattan"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.8!2d-74.0061!3d40.7073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a165bedccab%3A0x2cb2ddf003b5ae01!2s40+Fulton+St%2C+New+York%2C+NY+10038!5e0!3m2!1sen!2sus!4v1"
+          width="100%"
+          height="450"
+          style={{ border: 0, display: "block" }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
       </div>
-
-      <style>{`
-        /* Two-column layout */
-        .contact-layout-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 3rem;
-          align-items: stretch;
-        }
-
-        /* Form column stretches to fill grid row height */
-        .contact-form-col {
-          display: flex;
-          flex-direction: column;
-        }
-
-        /* Form itself stretches inside the column */
-        .contact-form-inner {
-          display: flex;
-          flex-direction: column;
-          gap: 1.25rem;
-          height: 100%;
-        }
-
-        /* Message wrapper grows to fill remaining height */
-        .contact-message-wrap {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-          flex: 1;
-        }
-
-        /* Textarea fills its wrapper */
-        .contact-textarea-grow {
-          flex: 1;
-          width: 100%;
-        }
-
-        /* Two-col field row */
-        .form-row-2col {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 1.25rem;
-        }
-
-        /* Mobile: single column */
-        @media (max-width: 860px) {
-          .contact-layout-grid {
-            grid-template-columns: 1fr;
-          }
-          .contact-form-col,
-          .contact-form-inner {
-            height: auto;
-          }
-          .contact-message-wrap {
-            flex: unset;
-          }
-          .contact-textarea-grow {
-            flex: unset;
-            min-height: 140px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .form-row-2col {
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
-
-    </main>
+    </>
   );
 }

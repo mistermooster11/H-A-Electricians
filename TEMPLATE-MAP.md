@@ -1,316 +1,306 @@
-# Template Map: PipeMonkey Template (v1)
-**Framework**: Next.js 16 App Router  
-**Styling**: Tailwind CSS v4 + custom CSS (`styles/`)  
-**Package Manager**: pnpm  
-**Architecture**: Hybrid — primary client content lives in `/data/` files (data-driven); homepage sections, FAQs, contact, gallery, service areas, and blog are hardcoded inline in page/component files  
-**Last Mapped**: May 2026 (v2 — updated after full Pipe Monkeys redesign)  
-**First Client Built**: Pipe Monkeys (drain & sewer — Brooklyn, Queens, Nassau County)
+# Template Map: Unclog
+**Framework**: Next.js 16 (React 19) App Router  
+**Styling**: Tailwind CSS v4 + custom CSS (`styles/homepage.css`, `styles/inner-pages.css`, `styles/common.css`)  
+**Animations**: GSAP (lazily imported — loads on client only)  
+**Architecture**: Mixed — partially data-driven (`/data/` folder handles testimonials, FAQ, pricing, blog, services, nav), partially hardcoded (Hero copy, Header phone, About copy, CTA copy, all service detail page props)  
+**Package Manager**: npm (use `npm install` and `npm run dev`)  
+**Last Mapped**: 2026-05-23
 
 ---
 
 ## Quick Reference
 
-This is a purpose-built template for **local skilled trade businesses** — no conceptual remapping required. It ships with 10 pages, a service detail dynamic route, a testimonial slider, a redesigned contact page with stacked service areas + form + map, and a before/after gallery. The most data-driven page is `/explore/[slug]` (About Us), which pulls entirely from `data/channel/[slug].tsx`. Service catalog, service detail pages, and the service overview list are also fully data-driven. Homepage sections (Hero, Announcements, Difference, Testimonial) and the FAQs, Contact, Gallery, Service Areas, and Blog pages contain hardcoded inline content that requires direct editing.
-
-**The key insight for repositioning:** Edit data files first — lowest risk, highest leverage. Then work through the hardcoded component list. The service detail pages are driven by `data/craft-catalog/service-pages.tsx` — one entry per service slug. Register every new client in `data/channel/index.ts` or the About Us page will 404.
-
-**Critical difference from NCCER Clone template:** This template already has the full trade page set built in (gallery, service areas, blog, privacy policy). There is nothing to remove — only content to swap. All pages are trade-appropriate out of the box.
-
-**Homepage section order (v2):** Hero → HomeSectionWithLine (How It Works) → Insights (Services accordion) → Testimonial → HomeCTA (Call CTA strip). All five sections are active — edit each component directly.
+This template has a `/data/` folder with 10 TypeScript files that handle the most frequently swapped content — services, testimonials, FAQ, pricing, blog posts, and nav links. However, several high-visibility sections are still hardcoded inline: the Hero headline and video, the Header phone number, the About section copy, the CTA section copy, and all 5 service detail pages (which pass their content as component props). Repositioning requires editing both the data files (fast) and a targeted list of components and page files (moderate effort). No index registry file is needed — each page is its own static route.
 
 ---
 
 ## Pages & Routes
 
-| Route | Purpose | Data File | Inline Content? |
-|-------|---------|-----------|----------------|
-| `/` | Homepage | `lib/constants/AccordionItems.tsx` (Insights data) | Yes — Hero, Announcements, Difference, Insights, Testimonial, HomeCTA all hardcoded |
-| `/explore/[slug]` | About Us | `data/channel/[slug].tsx` | No — fully data-driven |
-| `/craft-catalog` | Services catalog with filter | `data/craft-catalog/crafts.ts` | Minimal |
-| `/craft-catalog/[slug]` | Individual service detail | `data/craft-catalog/service-pages.tsx` | No — data-driven |
-| `/programs-crafts/programs` | Service overview list (cards) | `data/programs.tsx` | No — fully data-driven |
-| `/general-faqs` | FAQs accordion | None | Yes — all FAQ items inline in page file |
-| `/contact-us` | Contact form + service areas + map | None | Yes — all content inline |
-| `/gallery` | Before/After job photo grid | None | Yes — gallery items array inline |
-| `/service-areas` | Regional landing sections | None | Yes — area data inline |
-| `/blog` | Blog post index | None | Yes — post array inline |
-| `/privacy-policy` | Privacy Policy | None | Yes — all sections inline in page file |
-
-**Dynamic route — `/explore/[slug]`:** slug must match a key in `data/channel/index.ts`. Missing registration = 404.
-
-**Dynamic route — `/craft-catalog/[slug]`:** slug must match a key in the `servicePages` record in `data/craft-catalog/service-pages.tsx`. The route uses `generateStaticParams` to pre-render all registered slugs at build time. Missing key = 404.
+| Route | Purpose | Data Source | Hardcoded Content? |
+|-------|---------|-------------|-------------------|
+| `/` | Homepage | Components pull from data files | Yes — Hero H1, description, video, CTA section copy, About copy, NeedServices copy |
+| `/about-us` | About Us | `data/about.ts` (why-choose bullets) | Yes — About heading, 2 body paragraphs, FleetSection copy + images |
+| `/contact-us` | Contact form + map | None | Yes — Google Maps embed URL, page metadata |
+| `/faq` | FAQs | `data/faq.ts` | Minimal — PageHeroSection title/subtitle only |
+| `/services-page` | Services overview | `data/services.ts` | Minimal — PageHeroSection title/subtitle only |
+| `/blog-unclogme` | Blog listing | `data/blog.ts` | Minimal — PageHeroSection title/subtitle only |
+| `/residential-unclogging` | Service detail | Page props (hardcoded inline) | Yes — heading, intro, whatWeDo, whyChooseUs bullets, metadata |
+| `/commercial-unclogging` | Service detail | Page props (hardcoded inline) | Yes — same as above |
+| `/camera-inspection` | Service detail | Page props (hardcoded inline) | Yes — same as above |
+| `/grease-trap-cleaning` | Service detail | Page props (hardcoded inline) | Yes — same as above |
+| `/recurring-grease-trap-cleaning-maintenance` | Service detail | Page props (hardcoded inline) | Yes — same as above |
+| `/become-an-unclogger` | Careers/hiring page | `data/become.ts` | Yes — BecomeSection copy (rename or remove for most clients) |
 
 ---
 
 ## Data Files — Content Slots
 
-### `data/channel/[client-slug].tsx`
-_Primary About Us and homepage channel data. One file per client._  
-_Type: `ChannelPageData` (defined in `components/custom/channel/types.ts`)_
+### `data/nav.ts`
+_Controls main nav (header dropdown) and both footer link columns._
 
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| `slug` | string | ✅ | URL key — must match registration in `index.ts` |
-| `navItems[]` | `{href, label}[]` | ✅ | In-page anchor nav for About Us sidebar |
-| `hero.title` | string | ✅ | Page H1 |
-| `hero.breadcrumbLabel` | string | ✅ | Breadcrumb text |
-| `hero.imageBg` | string | ✅ | Full CSS background string e.g. `url(...) no-repeat center/cover` |
-| `hero.description` | ReactNode | ✅ | 1–2 sentence intro `<p>` |
-| `learnMore.title` | string | ✅ | About section headline |
-| `learnMore.content` | ReactNode | ✅ | 3–5 paragraphs; can include `<h5>` subheads |
-| `resources.title` | string | ✅ | Quick links section heading |
-| `resources.resources[]` | array | ✅ | Each: `{title, href, icon}` — icon is icomoon class string |
-| `crafts.description` | ReactNode | ✅ | Intro above service links |
-| `crafts.craftLinks[]` | array | ✅ | Each: `{label, href}` — links to `/craft-catalog/[slug]` pages |
-| `testimonials.videos[]` | array | ⬜ | Use `[]` if no videos |
-| `testimonials.quote` | object | ✅ | `{text, name, position}` |
-| `flexFeature.imageSrc` | string | ✅ | Emergency CTA photo URL |
-| `flexFeature.title` | string | ✅ | Emergency CTA headline |
-| `flexFeature.body` | ReactNode | ✅ | 1–2 sentence body |
-| `flexFeature.buttonLabel` | string | ✅ | CTA button text |
-| `flexFeature.buttonHref` | string | ✅ | CTA link — typically `tel:` |
-| `getInTouch.body` | ReactNode | ✅ | Contact CTA paragraph |
-| `getInTouch.buttonLabel` | string | ✅ | Button text |
-| `getInTouch.buttonHref` | string | ✅ | Button link |
+| Export | Type | Notes |
+|--------|------|-------|
+| `navItems` | `NavItem[]` | Main nav. Each item has `label`, `href`, optional `children[]` for dropdown |
+| `quickLinks` | `FooterLink[]` | Footer "Quick Links" column |
+| `servicesLinks` | `FooterLink[]` | Footer "Our Services" column |
 
-**Register in**: `data/channel/index.ts` — add import and add key to `channelDataMap`
+**To update nav**: Edit `navItems` array. Flatten the structure (remove `children`) for simple trade clients.  
+**Footer links**: Update `quickLinks` and `servicesLinks` to match the client's actual pages.
 
 ---
 
-### `lib/constants/AccordionItems.tsx`
-_Drives the Insights services accordion section on the homepage._  
-_Used by `components/custom/Insights.tsx`, `InsightAccordionTabItem.tsx`, and `InsightAccordionDataItem.tsx`._
+### `data/services.ts`
+_Drives the homepage Services grid and service detail sidebar._
+
+| Export | Type | Fields | Notes |
+|--------|------|--------|-------|
+| `services` | `Service[]` | `number`, `title`, `image`, `href`, `width`, `height` | 4 service cards on homepage. `number` is decorative ("01"–"04") |
+| `sidebarServices` | `SidebarService[]` | `label`, `href` | Sidebar nav on all service detail pages |
+
+**Note**: `ServiceDetailSection.tsx` also has a **hardcoded `SIDEBAR_SERVICES` array** inside the component that duplicates `sidebarServices`. Update both when adding/removing services.
+
+---
+
+### `data/testimonials.ts`
+_Drives `TestimonialsSection` — shown on homepage and most inner pages._
 
 | Field | Type | Notes |
 |-------|------|-------|
-| `id` | string | Unique accordion ID e.g. `"accordion-0"` |
-| `title` | string | Service name shown as the clickable tab label |
-| `image` | string | Path to placeholder/real image shown in the right panel |
-| `description` | string | Short overview shown in the left panel when expanded |
-| `learnHref` | string | Link to the full service detail page e.g. `/craft-catalog/[slug]` |
-| `steps[]` | `{ label: string; body: string }[]` | 3–4 condensed how-it-works steps shown in the right panel |
+| `name` | `string` | Reviewer name |
+| `rating` | `number` | Stars (1–5) |
+| `text` | `string` | Review body |
+| `avatar` | `string` | URL — typically a Google avatar URL. Replace with `/images/avatar-*.png` for local images |
 
-**How many items:** Template ships with 4. Sidebar arrow indicator slides to the active item — 3–5 items work cleanly. More than 5 may cause layout issues on mobile.
-
-**Right panel image:** Each item's `image` field is displayed as a background-cover div above the steps. Replace with real job photos before launch.
+**Minimum**: 3 reviews. **Ideal**: 5–6 for carousel variety.
 
 ---
 
-### `data/craft-catalog/crafts.ts`
-_Drives the services catalog page (`/craft-catalog`). Filter bar has been removed — list is now a clean sortable table._
+### `data/faq.ts`
+_Drives `FAQSection` on homepage and the `/faq` page._
 
 | Field | Type | Notes |
 |-------|------|-------|
-| `crafts[]` | `CraftItem[]` | Each: `slug, title` — categories/disciplines/assessment/translation fields are unused and can be omitted |
+| `q` | `string` | Question |
+| `a` | `string` | Answer (plain text only, no JSX) |
 
-**⚠️ Filter bar removed (v2):** `CraftCatalogClient.tsx` no longer imports or renders `CraftFilterBar`. The `CATEGORIES` and `DISCIPLINES` constants in `crafts.ts` are no longer used — you can remove them when setting up a new client, or simply leave them and they'll be ignored.
-
-**Important:** Every `slug` in `crafts[]` must have a matching key in `service-pages.tsx` or the detail page will 404.
-
----
-
-### `data/craft-catalog/service-pages.tsx`
-_Drives all individual service detail pages at `/craft-catalog/[slug]`._  
-_Type: `ServicePageData` (defined at top of same file)_  
-_Record key = URL slug — must match `crafts.ts` slugs_
-
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| `title` | string | ✅ | Service name — used in page H1 and `<title>` meta |
-| `bgColor` | string | ✅ | Fallback CSS color while TODO image is pending e.g. `#101d2b` |
-| `navItems[]` | `{href, label}[]` | ✅ | Sidebar anchor nav — always include `#overview`, `#when_you_need_it`, `#our_process`, `#related_services` |
-| `overviewContent` | ReactNode | ✅ | 1–2 paragraphs in CraftOverview left column |
-| `overviewQuickLinks[]` | `{label, href}[]` | ✅ | Right column quick links — always include phone + contact |
-| `sections[]` | `{id, heading, content ReactNode}[]` | ✅ | Middle page sections — typically "When You Need It" + "Our Process" |
-| `relatedServices[]` | `{label, href}[]` | ✅ | 3–4 links to other service slugs shown at page bottom |
-
-**Note:** The page uses a shared `PLACEHOLDER_BG` constant (`/images/IMG_9688-1024x682.jpg`) for all service hero backgrounds. Replace per-service before launch.
+**Typical count**: 4–6 items. Keep answers short — 2–3 sentences max for the accordion layout.
 
 ---
 
-### `data/programs.tsx`
-_Drives the service overview list at `/programs-crafts/programs`._  
-_Type: `ProgramsPageData`_
+### `data/pricing.ts`
+_Drives `PricingSection` — shown on homepage and service detail pages._
 
 | Field | Type | Notes |
 |-------|------|-------|
-| `navItems[]` | `{href, label}[]` | In-page anchor nav |
-| `hero.title` | string | Page H1 |
-| `hero.bgImage` | string | Hero background image URL |
-| `hero.description` | ReactNode | Intro paragraph |
-| `hero.breadcrumbParentLabel` | string | Breadcrumb parent text |
-| `hero.breadcrumbParentHref` | string | Breadcrumb parent link |
-| `overview.content` | ReactNode | Copy above service cards |
-| `overview.quickLinks[]` | array | Each: `{label, href, icon}` |
-| `programs[]` | `ProgramItem[]` | Each: `{title, content ReactNode, learnMoreHref}` — one card per service |
-| `partners[]` | `PartnerItem[]` | Logo grid — use `[]` for trade clients |
+| `price` | `number` | Numeric price (displayed as `$XXX`) |
+| `note` | `string` | Below-price note (e.g., "No hidden fees") |
+| `title` | `string` | Package name |
+| `features` | `string[]` | Bullet list of included items |
+| `description` | `string` | Short descriptive copy (supports `\n\n` for line breaks) |
+| `highlight?` | `boolean` | Renders card with accent color border as the "featured" plan |
+
+**Typical count**: 3–4 pricing cards. Not all trade businesses use public pricing — remove `PricingSection` from page imports if client doesn't want prices shown.
 
 ---
 
-### `lib/constants/mainNavItems.ts`
-_Controls desktop nav (Navbar.tsx) and mobile nav (MobileNav.tsx)._
+### `data/blog.ts`
+_Drives `BlogSection` on homepage and the `/blog-unclogme` page._
 
-Current trade nav — 4 flat items, no dropdowns:
-```ts
-export type MainNavItem = {
-  label: string;
-  href?: string | null;
-  external?: boolean;
-  dropdown?: NavDropdown | null;
-};
+| Field | Type | Notes |
+|-------|------|-------|
+| `slug` | `string` | Full URL path (e.g., `/2026/02/02/post-slug/`) |
+| `image` | `string` | Card image path — store in `/public/images/` |
+| `date` | `string` | Day number as string ("02") |
+| `monthYear` | `string` | Display string ("Feb '26") |
+| `category` | `string` | Display category label |
+| `categoryHref` | `string` | Category URL |
+| `title` | `string` | Post title |
+| `excerpt` | `string` | 1–2 sentence preview |
 
-export const mainNavItems: MainNavItem[] = [
-  { label: "Home",     href: "/" },
-  { label: "Services", href: "/craft-catalog" },
-  { label: "FAQs",     href: "/general-faqs" },
-  { label: "Contact",  href: "/contact-us" },
-];
-```
+**Note**: This template does not have individual blog post pages — slugs can link to an external blog or CMS. If the client doesn't have a blog, remove `BlogSection` from `app/page.tsx` imports.
 
-**⚠️ TypeScript Note:** Must export `mainNavItems` as `MainNavItem[]` with explicit type annotation. The `NavDropdown` type must include `description: string` (required, not optional) — `NavItem.tsx` expects it required. See TS Notes section below.
+---
+
+### `data/about.ts`
+_Provides the bullet list in the "Why Choose Us" portion of `AboutSection`._
+
+| Export | Type | Notes |
+|--------|------|-------|
+| `whyChooseUs` | `string[]` | 3–5 short bullet strings. Rendered with check icons. |
+
+**Note**: The About section heading, body paragraphs, and years-of-experience stat are hardcoded in `AboutSection.tsx` itself.
+
+---
+
+### `data/ticker.ts`
+_Drives the `MarqueeTicker` scrolling banner below the Hero._
+
+| Export | Type | Notes |
+|--------|------|-------|
+| `tickerItems` | `string[]` | Short labels that scroll continuously. 6–10 items ideal. |
+
+---
+
+### `data/why-choose.ts`
+_Drives `WhyChooseSection` (shown on the About Us page)._
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `title` | `string` | Card heading (e.g., "Quality Service") |
+| `text` | `string` | 1–2 sentences of supporting copy |
+
+**Typical count**: 6 cards (2×3 grid).
+
+---
+
+### `data/become.ts`
+_Drives `BecomeSection` on the `/become-an-unclogger` page._
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `num` | `string` | Decorative number ("01"–"04") |
+| `title` | `string` | Benefit heading |
+| `text` | `string` | 1–2 sentence description |
+
+**For most clients**: Rename this page to `/careers` or remove it entirely. Update `data/nav.ts` to remove the nav entry.
 
 ---
 
 ## Hardcoded Components (Require Direct Editing)
 
-| Component | What to Change | Effort |
-|-----------|---------------|--------|
-| `components/custom/Hero.tsx` | H1 headline, subheading paragraph, CTA phone number + label, hero video `<source src>` | Medium |
-| `components/custom/header/Topnav.tsx` | Phone number in centered top bar (`href="tel:..."` + display text) | Low |
-| `components/custom/Footer.tsx` | Quick links, contact widget (phone, hours), service areas summary, social URLs, copyright name | Low |
-| `components/custom/Announcements.tsx` | "How It Works" headline, 3-step process copy, feature image `backgroundImage` URL. Has two buttons: "Schedule Service" (tel:) and "See All Services" (/craft-catalog) | Medium |
-| `components/custom/Difference.tsx` | Stats array (3 items: stat, label, linkText, href), section headline, trust photo `<VapeImage src>`. Third stat links to `/craft-catalog` — update if nav changes | Medium |
-| `components/custom/Insights.tsx` | Sub-heading, H2 headline, intro paragraph above the accordion. Accordion items are in `lib/constants/AccordionItems.tsx` | Low |
-| `lib/constants/AccordionItems.tsx` | All 4 accordion entries — title, image, description, learnHref, and 3–4 steps per service | Medium |
-| `components/custom/HomeCTA.tsx` | Sub-heading, H2 headline, body copy, phone number (`href` + display text). This is the compact call-to-action strip above the footer. | Low |
-| `components/custom/Testimonial.tsx` | `testimonials[]` array — quote, name, position, platform per reviewer. Slider auto-advances; add/remove entries freely | Medium |
-| `app/page.tsx` | Homepage section order: Hero → HomeSectionWithLine → Insights → Testimonial → HomeCTA. All five active — import and render any new sections here | Low |
-| `app/general-faqs/page.tsx` | `faqItems[]` array — all FAQs inline. CTA section at bottom uses `ia-bg-sky` (light blue) with standard dark text — do not add white text classes | Medium |
-| `app/contact-us/page.tsx` | Hero uses `<CraftHero>` component (full-width image masthead). `serviceAreas[]` array (region, description, neighborhoods per area), phone number throughout, Google Maps iframe `src` | Medium |
-| `app/gallery/page.tsx` | `galleryItems[]` array — 4 items, 2-column grid. Each: label, image URL (single image, aspect-ratio 4/3). No before/after split in this version | Medium |
-| `app/service-areas/page.tsx` | `areas[]` array — slug, region, headline, description, callouts[], neighborhoods per region | Medium |
-| `app/blog/page.tsx` | `posts[]` array — all post entries inline | Low |
-| `app/privacy-policy/page.tsx` | All policy sections inline. Update company name, contact email, and any jurisdiction-specific details | Low |
+| Component / File | What to Change | Effort |
+|-----------------|---------------|--------|
+| `components/custom/hero/HeroSection.tsx` | H1 text (lines 73–78), description paragraph (lines 83–89), button hrefs (lines 92–97), video `src` URL (line 65), poster image (line 62) | **High** — video URL must be replaced with client video or removed |
+| `components/custom/header/Header.tsx` | Phone number `href` + display text (line 54–58), topbar item labels (line 40, 49), logo `src` (line 69) | **Low** |
+| `components/custom/footer/Footer.tsx` | Logo `src` (line 13), brand description paragraph (lines 21–24), social `href` links (lines 27–41), copyright text (line 78), legal link hrefs (lines 81–82) | **Low** |
+| `components/custom/about/AboutSection.tsx` | About heading (lines 43–45), 2 body paragraphs (lines 47–54), years-of-experience stat (line 101), about image `src` (line 84) | **Medium** |
+| `components/custom/cta/CTAFormSection.tsx` | Eyebrow (line 66), heading (lines 67–70), subtext (lines 73–76), `WHY_LEFT` array (lines 48–53), `WHY_RIGHT` array (lines 54–59), right-panel heading + paragraphs (lines 143–150) | **Medium** |
+| `components/custom/need-services/NeedServicesSection.tsx` | Heading (lines 33–34), paragraph (lines 37–39), button href (line 41) | **Low** |
+| `components/custom/fleet/FleetSection.tsx` | Fleet heading (line 42), intro paragraph (lines 44–50), 3 truck image `src` paths (lines 55–75) — currently uses `/wp-assets/` images that must be replaced | **Medium** |
+| `components/custom/service-detail/ServiceDetailSection.tsx` | `SIDEBAR_SERVICES` hardcoded array (lines 24–30) — must match `data/services.ts` entries | **Low** |
+| `app/layout.tsx` | Default site `title` and `description` metadata (lines 13–15) | **Low** |
+| `app/contact-us/page.tsx` | Google Maps `src` embed URL (line 27), page `metadata` title + description | **Low** |
+| Each service `page.tsx` (×5) | `PageHeroSection` title + subtitle, `ServiceDetailSection` heading + `intro[]` + `whatWeDo[]` + `whyChooseUs[]`, page `metadata` title + description | **Medium per page** |
 
 ---
 
 ## Navigation
 
-- **Main nav file**: `lib/constants/mainNavItems.ts`
-- **Template default**: 4-item flat nav — `Home | Services | FAQs | Contact` — already trade-ready
-- **Mobile nav**: `components/custom/header/MobileNav.tsx` — reads from same `mainNavItems`
-- **Desktop nav**: `components/custom/header/Navbar.tsx` — also reads from `mainNavItems`
-- **To add Service Areas**: add `{ label: "Service Areas", href: "/service-areas" }` — recommended when regional coverage is a key selling point
-- **TS requirement**: Export `mainNavItems` as `MainNavItem[]` — see TS Notes
+- **Main nav file**: `data/nav.ts` → `navItems`
+- **Nav type**: 2-level dropdown (label + optional `children[]` array for sub-items)
+- **Current structure**: 5 top-level items — Homepage, About (×2 children), Services (×4 children), Blog, Contact (×2 children)
+- **Recommended for trade clients**: Simplify to 4–5 flat items, no dropdowns. Suggested: `[Home, Services, About, Blog, Contact]`
+- **Mobile nav**: `components/custom/header/NavMenu.tsx` — reads the same `navItems` export
+- **Footer nav**: Also from `data/nav.ts` — update `quickLinks` and `servicesLinks` to match final nav structure
 
 ---
 
 ## Image Slots
 
-| Slot | File | Current Placeholder | Notes |
-|------|------|---------------------|-------|
-| Hero background video | `components/custom/Hero.tsx` | NCCER video URL | Replace `<source src>` with client video or swap to `<img>` |
-| Feature section image | `components/custom/Announcements.tsx` | `/images/IMG_9688-1024x682.jpg` | `backgroundImage` inline style |
-| Trust stats photo | `components/custom/Difference.tsx` | `/images/IMG_9750-1024x683.jpg` | `<VapeImage src>` prop |
-| About Us hero | `data/channel/[client].tsx → hero.imageBg` | `/images/IMG_9688-1024x682.jpg` | Full CSS background string |
-| About Us flex feature | `data/channel/[client].tsx → flexFeature.imageSrc` | `/images/iStock-1220765707-443x559-1.jpg` | Direct URL |
-| Service detail hero | `app/craft-catalog/[slug]/page.tsx → PLACEHOLDER_BG` | `/images/IMG_9688-1024x682.jpg` | Shared across all service pages — swap per-service before launch |
-| Gallery before/after | `app/gallery/page.tsx → galleryItems[].before/.after` | `/images/IMG_9688...` + `/images/IMG_9750...` (rotating) | Replace with real job photos |
-| Logo (mobile header) | `components/custom/header/MobileNav.tsx` + `Topnav.tsx` | `/logos/logo-94.svg` | Replace SVG file in `/public/logos/` |
-| Logo (footer) | `components/custom/Footer.tsx` | `/logos/logo-long.svg` | Replace SVG file in `/public/logos/` |
-
-**Placeholder strategy:** All template images are from `/public/images/`. Replace with client-provided photos before launch. Use `[TODO: Replace with [description] photo]` comments and `backgroundColor: '#101d2b'` as fallback.
-
----
-
-## Testimonial Slider
-
-`components/custom/Testimonial.tsx` ships with a **3-review carousel** that auto-advances every 6 seconds with left/right arrow buttons and dot indicators.
-
-To reposition for a new client:
-- Edit the `testimonials[]` array at the top of the file
-- Each entry: `{ id, quote, name, position, platform }`
-- Minimum 1 review; slider controls only appear when 2+ entries exist
-- Mark placeholder reviews clearly with `// TODO: Replace with real review`
-- The `SLIDE_HEIGHT` constant (default `"28rem"`) may need adjustment if quotes are significantly longer or shorter than the template's
+| Slot | File | Current Asset | Action Required |
+|------|------|--------------|-----------------|
+| Hero video | `HeroSection.tsx` line 65 | External URL: `unclogme.com/wp-content/...mp4` | **Replace** — upload client video to `/public/videos/` or use a still image fallback |
+| Hero video poster | `HeroSection.tsx` line 62 | `/wp-assets/Title-Background-Image-scaled.webp` | **Replace** with client hero image |
+| Header logo | `Header.tsx` line 69 | `/logo.png` (200×44) | **Replace** with client logo |
+| Footer logo | `Footer.tsx` line 13 | `/images/logo-image-50.png` (239×58) | **Replace** with client logo |
+| About section photo | `AboutSection.tsx` line 84 | `/images/about-row.webp` (690×613) | **Replace** with client team/work photo |
+| About decoration icon | `AboutSection.tsx` line 94 | `/images/vector-decoration.svg` | Optional — keep or replace with client-appropriate icon |
+| Service card image 1 | `data/services.ts` line 29 | `/images/service-1.png` (535×643) | **Replace** with client service photo |
+| Service card image 2 | `data/services.ts` line 36 | `/images/service-2.png` (535×643) | **Replace** |
+| Service card image 3 | `data/services.ts` line 43 | `/images/service-3.webp` (535×643) | **Replace** |
+| Service card image 4 | `data/services.ts` line 50 | `/images/service-4.webp` (535×643) | **Replace** |
+| Service detail sidebar | Each service `page.tsx` | Same service images | **Same files as above** — already linked via page props |
+| Fleet truck 1 | `FleetSection.tsx` line 55 | `/wp-assets/About-Row-IMG-1.webp` | **Replace** with client truck/equipment photo |
+| Fleet truck 2 | `FleetSection.tsx` line 63 | `/wp-assets/Truck-Example-2.webp` | **Replace** |
+| Fleet truck 3 | `FleetSection.tsx` line 71 | `/wp-assets/Truck-Example-3.webp` | **Replace** |
+| Blog post image 1 | `data/blog.ts` | `/images/blog-3.png` | **Replace** with client blog images or stock photos |
+| Blog post image 2 | `data/blog.ts` | `/images/blog-2.png` | **Replace** |
+| CTA background | `styles/homepage.css` (referenced via CSS) | `/images/cta-bg.png` | **Replace** if different background desired |
+| Testimonial avatars | `data/testimonials.ts` | External Google avatar URLs | **Replace** with `/images/avatar-name.png` or leave as URLs if Google-sourced |
 
 ---
 
-## Contact Page Structure
+## Pages Not Included (Commonly Needed for Trade Clients)
 
-`app/contact-us/page.tsx` has four fixed sections in this order:
-
-1. **Hero** — uses `<CraftHero>` component (full-width background image with breadcrumb overlay — same as service detail pages). Pass `title`, `bgImage`, and `breadcrumbs` props. Default image: `/images/IMG_9688-1024x682.jpg`.
-2. **Contact Form** — 2-column grid form (name, phone, email, service dropdown, message) + `ia-btn` styled submit button
-3. **Service Areas** — intro paragraph + stacked `AreaSection` components (one per region). Sections are plain divs with `paddingBottom` and `borderBottom` — do NOT wrap in `flex-module` or `content-block` (adds unwanted padding).
-4. **Google Map** — iframe embed below all neighborhoods
-
-To reposition: update `serviceAreas[]` array (region, description, neighborhoods), all phone number `href` and display values, and the Google Maps iframe `src` URL.
-
----
-
-## TypeScript Notes (Known Build Issues)
-
-1. **`mainNavItems` type** — must use explicit `MainNavItem[]` annotation. Using `dropdown: null` causes `MobileNav.tsx` to throw `Property 'titleHref' does not exist on type 'never'`. Solution: omit `dropdown` entirely on flat items and export with `MainNavItem[]` type.
-
-2. **`NavDropdown.description`** — must be `description: string` (required), not `description?: string`. `NavItem.tsx` expects it required — making it optional causes TS error at `Navbar.tsx`.
-
-3. **`service-pages.tsx` slugs** — every slug key in `servicePages` must match a slug in `crafts.ts`, and vice versa. Mismatches don't throw at build time but produce 404s at runtime.
-
-4. **`data/channel/index.ts` registration** — new clients must be imported and added to `channelDataMap`. Missing registration silently 404s the About Us page.
+| Page | Path | When to Add |
+|------|------|-------------|
+| Before/After Gallery | `/gallery` | Always recommended — strong trust signal |
+| Service Areas | `/service-areas` | When client covers multiple distinct cities/regions |
+| Privacy Policy | `/privacy-policy` | Required for GDPR / contact form compliance |
+| Thank You / Confirmation | `/thank-you` | After form submission — improves conversion tracking |
 
 ---
 
 ## Repositioning Checklist
 
-Use for every new client build on the PipeMonkey template:
+Use this checklist for every client build on the Unclog template.
 
-**Data files — start here:**
-- [ ] Create `data/channel/[client-slug].tsx` using `ChannelPageData` type
-- [ ] Register client in `data/channel/index.ts`
-- [ ] Edit `data/craft-catalog/crafts.ts` — replace service list + CATEGORIES + DISCIPLINES
-- [ ] Edit `data/craft-catalog/service-pages.tsx` — replace all service entries with client's services (one entry per slug)
-- [ ] Edit `data/programs.tsx` — replace service cards + hero + overview
+### Phase 1 — Data Files (start here, lowest risk)
+- [ ] `data/nav.ts` — Update `navItems` (simplify to flat nav), `quickLinks`, `servicesLinks` to match client's pages and services
+- [ ] `data/services.ts` — Replace service titles, hrefs, and image paths for client's actual services. Also update `sidebarServices[]`
+- [ ] `data/testimonials.ts` — Replace all reviews with client's real Google/Yelp reviews. Use real avatar URLs or download and store locally
+- [ ] `data/faq.ts` — Replace all FAQ items with trade-appropriate Q&A for client
+- [ ] `data/pricing.ts` — Replace pricing cards with client's packages, or remove `PricingSection` from page imports if client doesn't advertise prices
+- [ ] `data/blog.ts` — Replace with client's blog posts, or remove `BlogSection` from `app/page.tsx` if no blog
+- [ ] `data/about.ts` — Replace `whyChooseUs[]` bullets with client-specific differentiators
+- [ ] `data/ticker.ts` — Replace scrolling labels with client's services and credentials
+- [ ] `data/why-choose.ts` — Replace 6 cards with client's actual USPs
+- [ ] `data/become.ts` — Replace benefits, OR skip if removing the `/become-an-unclogger` page
 
-**Constants:**
-- [ ] Edit `lib/constants/mainNavItems.ts` — update labels if needed (already 4-item flat; add Service Areas if applicable)
+### Phase 2 — Global Layout & Identity
+- [ ] `app/layout.tsx` — Update default site `title` and `description` metadata (site-wide fallback)
+- [ ] `components/custom/header/Header.tsx` — Replace phone number (both `href` and display text), update topbar items, swap logo `src`
+- [ ] `components/custom/footer/Footer.tsx` — Swap logo `src`, rewrite brand description, update social link `href`s, update copyright text and legal link hrefs
 
-**Hardcoded components:**
-- [ ] Edit `components/custom/Hero.tsx` — headline, subheading, CTA phone, hero video/image
-- [ ] Edit `components/custom/header/Topnav.tsx` — phone number in top bar
-- [ ] Edit `components/custom/Footer.tsx` — links, contact info, service areas summary, copyright
-- [ ] Edit `components/custom/Announcements.tsx` — How It Works steps + feature image + button labels
-- [ ] Edit `components/custom/Difference.tsx` — trust stats + photo
-- [ ] Edit `lib/constants/AccordionItems.tsx` — 4 accordion service entries (title, image, description, learnHref, steps)
-- [ ] Edit `components/custom/Insights.tsx` — sub-heading, H2, intro paragraph
-- [ ] Edit `components/custom/HomeCTA.tsx` — sub-heading, H2, body copy, phone number
-- [ ] Edit `components/custom/Testimonial.tsx` — replace reviews in `testimonials[]` array
+### Phase 3 — Homepage Sections
+- [ ] `components/custom/hero/HeroSection.tsx` — Rewrite H1, description, button hrefs. **Replace video `src`** with client video (upload to `/public/videos/hero.mp4`) and update poster image. If no video: swap `<video>` for `<Image>` with a full-bleed hero photo
+- [ ] `components/custom/about/AboutSection.tsx` — Rewrite About heading, 2 body paragraphs, update years-of-experience stat, replace about image
+- [ ] `components/custom/cta/CTAFormSection.tsx` — Update eyebrow, heading, subtext, `WHY_LEFT` and `WHY_RIGHT` arrays, right-panel heading and paragraphs
+- [ ] `components/custom/need-services/NeedServicesSection.tsx` — Update heading and paragraph to match client's trade + city
 
-**Inline pages:**
-- [ ] Edit `app/general-faqs/page.tsx` — replace `faqItems[]` with trade-specific FAQs (6–8 items). CTA section uses `ia-bg-sky` (light blue) — use standard dark text, no white text classes
-- [ ] Edit `app/contact-us/page.tsx` — update `<CraftHero>` bgImage, replace `serviceAreas[]`, all phone numbers, Maps embed URL
-- [ ] Edit `app/gallery/page.tsx` — replace `galleryItems[]` (4 items, single image per job, aspect-ratio 4/3)
-- [ ] Edit `app/service-areas/page.tsx` — replace `areas[]` with client's regions
-- [ ] Edit `app/blog/page.tsx` — replace `posts[]` with relevant article placeholders
-- [ ] Edit `app/privacy-policy/page.tsx` — update company name, contact email, jurisdiction details
+### Phase 4 — Inner Pages
+- [ ] `components/custom/fleet/FleetSection.tsx` — Rewrite fleet heading and intro paragraph. **Replace all 3 `/wp-assets/` truck image `src` paths** with client photos or library images
+- [ ] `components/custom/service-detail/ServiceDetailSection.tsx` — Update `SIDEBAR_SERVICES` hardcoded array to match final service list
+- [ ] `app/contact-us/page.tsx` — Replace Google Maps embed `src` with client's actual business address map URL. Update page metadata
+- [ ] Each service `page.tsx` (×number of client services):
+  - Update `PageHeroSection` title + subtitle
+  - Update `ServiceDetailSection` props: `heading`, `intro[]`, `whatWeDo[]`, `whyChooseUs[]`, `sidebarImage`
+  - Update `metadata` title + description
+  - **Delete service pages the client doesn't offer** (e.g., remove grease trap pages for a residential plumber)
+- [ ] `/become-an-unclogger` — Rename to `/careers` or delete the folder. Update nav in `data/nav.ts`
 
-**Images (before launch):**
-- [ ] Hero video/image — `Hero.tsx` `<source src>`
-- [ ] Feature section image — `Announcements.tsx` `backgroundImage`
-- [ ] Trust photo — `Difference.tsx` `<VapeImage src>`
-- [ ] Insights accordion images — `lib/constants/AccordionItems.tsx` → `image` field per service (4 images)
-- [ ] Contact page hero — `app/contact-us/page.tsx` → `<CraftHero bgImage="...">` prop
-- [ ] About Us hero — `data/channel/[client].tsx → hero.imageBg`
-- [ ] About Us flex feature — `data/channel/[client].tsx → flexFeature.imageSrc`
-- [ ] Service detail hero — `app/craft-catalog/[slug]/page.tsx → PLACEHOLDER_BG`
-- [ ] Gallery images — `app/gallery/page.tsx → galleryItems[].image` (4 items)
-- [ ] Logo files — `/public/logos/logo-94.svg` + `/public/logos/logo-long.svg`
+### Phase 5 — Images
+- [ ] Replace all `/wp-assets/` images (Hero poster, Fleet trucks) — these are UnclogMe-specific
+- [ ] Replace service card images (4× in `data/services.ts` + same in service pages)
+- [ ] Replace About photo (`/images/about-row.webp`)
+- [ ] Replace both logo files (`/logo.png` and `/images/logo-image-50.png`)
+- [ ] Replace or remove blog images
+- [ ] Run image-library-matcher skill for any remaining `[TODO: Replace with...]` gaps
 
-**Before shipping:**
-- [ ] All phone numbers match prospect's actual number (grep for `7187491830` — replace every instance)
-- [ ] No Pipe Monkeys–specific content anywhere in the build (grep for "Pipe Monkeys", "pipe-monkey", "Brooklyn, Queens")
-- [ ] All image slots have real images or `[TODO]` comments
-- [ ] Testimonial placeholders flagged with `// TODO: Replace with real review`
-- [ ] All `learnHref` values in `AccordionItems.tsx` point to valid service slugs
-- [ ] TypeScript builds without errors (check TS Notes above)
-- [ ] `CONTENT-BRIEF.md` is complete
+### Phase 6 — Quality Check
+- [ ] All phone numbers show client's actual number (Header topbar, Footer, CTA section, contact page)
+- [ ] All service names match client's actual offerings
+- [ ] No "UnclogMe," "Miami-Dade," or "Aaron" references remain (unless client is in that area)
+- [ ] No `/wp-assets/` image references remain in any component
+- [ ] Video `src` is either a local file or a client-controlled CDN URL (not `unclogme.com` domain)
+- [ ] Google Maps URL shows client's actual business address
+- [ ] `npm run build` passes with zero TypeScript errors
+- [ ] All removed service pages are also removed from `data/nav.ts`, `data/services.ts`, and `ServiceDetailSection.tsx` SIDEBAR_SERVICES
+
+---
+
+## Conceptual Remapping
+
+_This template was built for a Miami-Dade drain unclogging and grease trap business. When repositioning to other trades:_
+
+| Unclog Template Concept | Other Trade Equivalent |
+|------------------------|----------------------|
+| Drain unclogging services | Any residential/commercial service (HVAC tune-up, roof repair, etc.) |
+| Grease trap cleaning | Specialty commercial service (preventive maintenance contracts) |
+| Camera inspection | Diagnostic/assessment service (electrical inspection, home energy audit) |
+| "Become an Unclogger" page | Careers page (rename) or delete entirely |
+| Fleet section (trucks) | Equipment section — reframe as "Our Equipment" for any service vehicle biz |
+| Miami-Dade / Broward / Palm Beach | Replace with client's actual service area throughout |
+| "24/7 emergency" messaging | Adjust to client's actual availability (not all trades are 24/7) |
+| Pricing cards | Works well for trades with package pricing. Remove if client quotes per-job only |
+| "Aaron" references (in stock testimonials) | Replace with real client testimonials |

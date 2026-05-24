@@ -1,14 +1,25 @@
-import CraftHero from "@/components/custom/craft-catalog/CraftHero";
+import type { Metadata } from "next";
+import "@/styles/homepage.css";
+import "@/styles/inner-pages.css";
+import PageHeroSection from "@/components/custom/page-hero/PageHeroSection";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | H&A NYC Electrician",
+  description: "Privacy Policy for H&A NYC Electrician — Manhattan licensed electrical contractors.",
+};
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="pt-76 max-[1150px]:pt-[6.2rem]">
-
-      <CraftHero
+    <>
+      <PageHeroSection
         title="Privacy Policy"
-        bgImage="https://www.bestnycelectricianmanhattan.com/wp-content/uploads/2025/05/Why-Choose-Us-Photo.jpg"
-        breadcrumbs={[{ label: "Privacy Policy" }]}
+        subtitle="H&A NYC Electrician is committed to protecting your personal information."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Privacy Policy" },
+        ]}
       />
+      <main>
 
       <div className="content-block-flex flex-module">
         <div className="inner inner--slim-1172">
@@ -78,5 +89,6 @@ export default function PrivacyPolicyPage() {
       </div>
 
     </main>
+    </>
   );
 }
