@@ -62,7 +62,7 @@ export default function HeroSection() {
           aria-hidden="true"
         >
           <source
-            src="https://customer-ip9lnkk65px0t3ak.cloudflarestream.com/47018312df342b93222ce62fba214c18/iframe?autoplay=true&muted=true&loop=true&controls=false"
+            src="https://customer-ip9lnkk65px0t3ak.cloudflarestream.com/10a72254efd26e29a46c14bb30b6c180/downloads/default.mp4"
             type="video/mp4"
           />
         </video>

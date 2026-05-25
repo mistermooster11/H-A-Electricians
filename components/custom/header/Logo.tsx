@@ -24,7 +24,7 @@ const Logo = ({ isFixed = false, isLoaded = false }: LogoProps) => {
         <span className="sr-only">H&A NYC Electrician</span>
         <img
           className="w-full"
-          src="/logos/H-A_logo-redesign.png"
+          src="/logos/H-A_logo-light-background.png"
           alt="H&A NYC Electrician logo"
         />
       </Link>
