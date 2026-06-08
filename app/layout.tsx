@@ -66,7 +66,7 @@ export default function RootLayout({
       </head>
       <body>
         <PageTransition />
-        <SalePopup businessName="H&A NYC Electrician" expiryDate="June 15, 2026" trade="electricians" />
+        <SalePopup businessName="H&A NYC Electrician" expiryDate="June 20, 2026" trade="electricians" />
         <Header />
         <main>{children}</main>
         <Footer />
